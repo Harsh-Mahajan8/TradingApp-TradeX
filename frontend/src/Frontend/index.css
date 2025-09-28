@@ -1,0 +1,176 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lora:ital,wght@0,400..700;1,400..700&display=swap");
+@import "tailwindcss";
+
+#root {
+  @apply text-gray-700;
+  font-family: "Inter", sans-serif;
+}
+
+.data p {
+  font-size: 0.91rem;
+  color: #5f5f5f;
+  line-height: 1.52rem;
+}
+p {
+  color: #3e3e3e;
+}
+a {
+  text-decoration: none;
+  color: #387ed1;
+}
+a:hover {
+  color: #000;
+}
+.imgs img {
+  width: 7.3rem !important;
+  margin: 0;
+}
+
+.imgs span {
+  font-size: 0.6rem;
+  position: relative;
+  left: -20px;
+  top: 30px;
+}
+
+.navItems {
+  @apply p-1 text-[0.94rem] text-zinc-800;
+}
+
+.navItems:hover {
+  color: #387ed1 !important;
+}
+
+.name {
+  font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+}
+
+/* Ensure Bootstrap navbar collapse isn't hidden by Tailwind's `.collapse` utility */
+.navbar .collapse {
+  visibility: visible !important;
+}
+.navbar .collapsing {
+  visibility: visible !important;
+}
+
+.social-media i {
+  margin-right: 1rem;
+  padding: 0.81rem;
+}
+
+.head {
+  font-weight: 450;
+  font-size: 0.9rem !important;
+}
+
+.footerList {
+  @apply text-[0.9rem] leading-8;
+}
+.footerList li {
+  @apply mb-4;
+}
+.paraHeight {
+  line-height: 1.17rem;
+}
+
+.footer a {
+  color: #7a7a7a;
+  margin-bottom: 4rem;
+}
+.footer a:hover {
+  color: #387ed1;
+}
+
+.bottom a {
+  @apply pr-4 text-[0.8rem] font-semibold text-zinc-400;
+}
+.paraLineHeight p a {
+  color: #387ed1 !important;
+}
+.active {
+  color: #387ed1 !important;
+}
+.box img {
+  @apply h-14 w-auto my-5 mx-auto object-fill p-1;
+}
+.box {
+  @apply text-[0.8rem] m-5 font-semibold;
+}
+
+.box p {
+  color: #6c6c6c !important;
+}
+img:hover {
+  opacity: 0.8;
+}
+
+.btm img {
+  @apply h-[12rem] mx-auto my-auto p-1;
+}
+.btm h3 {
+  @apply py-4;
+}
+
+.btm p {
+  @apply text-[#646464];
+}
+.pricing a {
+  color: #387ed1;
+  font-size: 1.62rem;
+  padding: 0.7rem 01.3rem;
+  font-weight: 500;
+}
+.navActive {
+  @apply border-b-2 border-[#387ed1] text-[#616161!important];
+}
+ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+.charges p {
+  @apply text-[1.051rem];
+}
+.dropdown ul {
+  @apply ms-2;
+}
+.dropdown a {
+  @apply ps-3;
+}
+.dropdown li {
+  @apply m-3;
+}
+.sideTable .row {
+  @apply border-b border-x border-gray-100 p-[1rem] mx-4;
+}
+.supInput:focus {
+  outline: none; /* removes the blue glow */
+  border: none; /* removes the border */
+}
+.custom-btn {
+  @apply bg-gradient-to-b from-indigo-400 to-pink-500 text-white font-semibold rounded py-2 px-3;
+}
+.custom-btn:hover {
+  background: #000 !important;
+}
+.navbar a:hover {
+  @apply text-[#387ed1];
+}
+.dropDown .col-3 img {
+  @apply mx-auto;
+}
+.dropDown header {
+  @apply text-[.91rem] mb-2;
+}
+.dropDown p {
+  @apply text-[0.7rem] text-[#7d7d7d] font-medium;
+}
+.dropRow li {
+  @apply text-[#5f5f5f] hover:text-[#387ed1] text-[.91rem] font-normal mb-1;
+}
+
+.trust p{
+  @apply text-[#646464];
+}
+.row{
+  @apply pt-[1!important] mt-[0!important] mb-[1!important]
+}

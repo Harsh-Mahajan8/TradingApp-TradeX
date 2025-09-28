@@ -2,30 +2,22 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import { Outlet } from "react-router-dom";
-import "./index.css";
-import HomePage from "./landing-page/Home/HomePage";
-import SignUpPage from "./landing-page/SignUp/SignUpPage";
-import AboutPage from "./landing-page/About/AboutPage";
-import ProductPage from "./landing-page/Products/ProductPage";
-import SupportPage from "./landing-page/Support/SupportPage";
-import PricingPage from "./landing-page/Pricing/PricingPage";
-import Navbar from "./landing-page/Navbar/Navbar";
-import Footer from "./landing-page/Footer";
-import NotFound from "./landing-page/NotFound";
-import Equity from "./landing-page/Pricing/BrokageCal/Equity";
-import Commodity from "./landing-page/Pricing/BrokageCal/Commodity";
-import Currency from "./landing-page/Pricing/BrokageCal/Currency";
-import LoginPage from "./landing-page/LoginPage";
-const DefaultRoute = () => {
-  return (
-    <>
-      <Navbar />
-      <Outlet />
-      <Footer />
-    </>
-  );
-};
+import "./Frontend/index.css";
+import "./Dashboard/index.css"
+import HomePage from "./Frontend/landing-page/Home/HomePage";
+import SignUpPage from "./Frontend/landing-page/SignUp/SignUpPage";
+import AboutPage from "./Frontend/landing-page/About/AboutPage";
+import ProductPage from "./Frontend/landing-page/Products/ProductPage";
+import SupportPage from "./Frontend/landing-page/Support/SupportPage";
+import PricingPage from "./Frontend/landing-page/Pricing/PricingPage";
+import NotFound from "./Frontend/landing-page/NotFound";
+import Equity from "./Frontend/landing-page/Pricing/BrokageCal/Equity";
+import Commodity from "./Frontend/landing-page/Pricing/BrokageCal/Commodity";
+import Currency from "./Frontend/landing-page/Pricing/BrokageCal/Currency";
+import LoginPage from "./Frontend/landing-page/LoginPage";
+import Home from "./Dashboard/components/Home"
+import DefaultRoute from "../DefaultRoute";
+
 createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Routes>
@@ -44,6 +36,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="*" element={<NotFound />} />
       </Route>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/tradeX/*" element={<Home />} />
     </Routes>
   </BrowserRouter>
 );
