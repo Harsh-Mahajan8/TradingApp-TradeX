@@ -33,7 +33,7 @@ function Footer() {
               <a href="">
                 <i className="fa-brands fa-linkedin-in"></i>
               </a>
-              <hr className="h-[0!important]"/>
+              <hr className="h-[0!important]" />
               <a href="">
                 <i className="fa-brands fa-youtube"></i>
               </a>
@@ -78,7 +78,7 @@ function Footer() {
                 <a href="">TradeX cares(CSR)</a> <br />
                 <a href="">TradeX.tech</a> <br />
                 <a href="">Open source</a> <br />
-              </div> 
+              </div>
               <div className="footerList">
                 <span className="head">Quick links</span> <br />
                 <a href="">Upcoming IPOs</a> <br />
@@ -92,7 +92,7 @@ function Footer() {
             </div>
           </div>
         </div>
-        <div className="row text-zinc-500 text-[0.67rem] paraLineHeight">
+        <div className="row text-zinc-500 text-[0.67rem] paraLineHeight pt-5">
           <p>
             TradeX Broking Ltd.: Member of NSE, BSE & MCX - SEBI Registration
             no.: INZ000031633 CDSL/NSDL: Depository services through TradeX

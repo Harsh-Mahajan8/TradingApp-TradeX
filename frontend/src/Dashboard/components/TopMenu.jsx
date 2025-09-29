@@ -38,10 +38,10 @@ const TopMenu = () => {
 
   return (
     <div className="menu-container">
-      <img src="/cross-mark.png" className="w-7" />
+      <img src="/cross-mark.png" className="w-7 " />
       <div className="menus">
-        <ul>
-          <li>
+        
+          
             <NavLink
               to={"/tradeX"}
               className={({ isActive }) =>
@@ -49,10 +49,10 @@ const TopMenu = () => {
               }
               onClick={() => handleMenuClick(0)}
             >
-              <p>Dashboard</p>
+             Dashboard
             </NavLink>
-          </li>
-          <li>
+        
+          
             <NavLink
               to={"/tradeX/orders"}
               className={({ isActive }) =>
@@ -60,10 +60,10 @@ const TopMenu = () => {
               }
               onClick={() => handleMenuClick(1)}
             >
-              <p>Orders</p>
+             Orders
             </NavLink>
-          </li>
-          <li>
+        
+          
             <NavLink
               to={"/tradeX/holdings"}
               className={({ isActive }) =>
@@ -71,10 +71,10 @@ const TopMenu = () => {
               }
               onClick={() => handleMenuClick(2)}
             >
-              <p>Holdings</p>
+             Holdings
             </NavLink>
-          </li>
-          <li>
+        
+          
             <NavLink
               to={"/tradeX/positions"}
               className={({ isActive }) =>
@@ -82,10 +82,10 @@ const TopMenu = () => {
               }
               onClick={() => handleMenuClick(3)}
             >
-              <p>Positions</p>
+             Positions
             </NavLink>
-          </li>
-          <li>
+        
+          
             <NavLink
               to={"/tradeX/funds"}
               className={({ isActive }) =>
@@ -93,10 +93,10 @@ const TopMenu = () => {
               }
               onClick={() => handleMenuClick(4)}
             >
-              <p>Funds</p>
+             Funds
             </NavLink>
-          </li>
-          <li>
+        
+          
             <NavLink
               to={"apps"}
               className={({ isActive }) =>
@@ -104,10 +104,10 @@ const TopMenu = () => {
               }
               onClick={() => handleMenuClick(5)}
             >
-              <p>Apps</p>
+             Apps
             </NavLink>
-          </li>
-          <li>
+        
+          
             <Fragment>
               <Box
                 sx={{
@@ -195,8 +195,8 @@ const TopMenu = () => {
                 </MenuItem>
               </Menu>
             </Fragment>
-          </li>
-        </ul>
+        
+        
       </div>
     </div>
   );

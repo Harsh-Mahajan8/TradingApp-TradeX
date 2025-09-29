@@ -89,7 +89,7 @@ const StockDetailList = () => {
 
   return (
     <div
-      className="watchlist-container h-auto mt-1"
+      className="watchlist-container mt-1"
       style={{ display: "flex", flexDirection: "column" }}
     >
       <div className="search-container text-zinc-700">

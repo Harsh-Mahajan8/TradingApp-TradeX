@@ -33,7 +33,7 @@ function WatchListItem({ stock, handleGraph }) {
       onMouseLeave={handleMouseLeave}
     >
       <div className={`item ${stock.percent < 0 ? "down" : "up"}`}>
-        <p>{stock.name}</p>
+        <p className={`item ${stock.percent < 0 ? "down" : "up"}`} >{stock.name}</p>
         <div className="itemInfo">
           <span className={`percent mx-2 ${stock.percent < 0 ? "down" : "up"}`}>
             {stock.percent > 0 ? "+" : ""}

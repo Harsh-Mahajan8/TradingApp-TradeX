@@ -5,14 +5,14 @@ const TopBar = () => {
     <div className="topbar-container">
       <div className="indices-container">
         <div className="nifty">
-          <p className="index">NIFTY 50</p>
-          <p className="index-points">{100.2} </p>
-          <p className="percent"> </p>
+          <p className="index mb-[0!important] ">NIFTY 50</p>
+          <p className="index-points mb-[0!important] ">{100.2} </p>
+          <p className="percent mb-[0!important] "> </p>
         </div>
-        <div className="sensex">
-          <p className="index">SENSEX</p>
-          <p className="index-points">{100.2}</p>
-          <p className="percent"></p>
+        <div className=" m-0 sensex">
+          <p className="index mb-[0!important] ">SENSEX</p>
+          <p className="index-points mb-[0!important] ">{100.2}</p>
+          <p className="percent mb-[0!important] "></p>
         </div>
       </div>
       <TopMenu />

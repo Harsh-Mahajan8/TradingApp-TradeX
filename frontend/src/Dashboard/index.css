@@ -269,19 +269,10 @@ code {
   justify-content: space-evenly;
 }
 
-.menus ul {
-  list-style-type: none;
-}
-
-.menus li {
-  display: inline-block;
-  margin-right: 30px;
-  text-decoration: none;
-}
-
 .menu {
   font-size: 0.8rem;
   font-weight: 400;
+  margin-right: 2rem;
   color: rgb(70, 70, 70);
 }
 

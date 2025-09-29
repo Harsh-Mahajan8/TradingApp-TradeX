@@ -18,7 +18,7 @@ ChartJS.register(
   Legend
 );
 
-export function VerticalChart({data}) {
+export function VerticalChart({ data }) {
   const options = {
     responsive: true,
     plugins: {
@@ -32,43 +32,46 @@ export function VerticalChart({data}) {
     },
   };
 
-//   const labels = [
-//     "January",
-//     "February",
-//     "March",
-//     "April",
-//     "May",
-//     "June",
-//     "July",
-//   ];
-const labels = data.map(subarray => subarray["name"]);
+  //   const labels = [
+  //     "January",
+  //     "February",
+  //     "March",
+  //     "April",
+  //     "May",
+  //     "June",
+  //     "July",
+  //   ];
+  const labels = data.map((subarray) => subarray["name"]);
 
-//   const data = {
-//     labels,
-//     datasets: [
-//       {
-//         label: "Dataset 1",
-//         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-//         backgroundColor: "rgba(255, 99, 132, 0.5)",
-//       },
-//       {
-//         label: "Dataset 2",
-//         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-//         backgroundColor: "rgba(53, 162, 235, 0.5)",
-//       },
-//     ],
-//   };
+  //   const data = {
+  //     labels,
+  //     datasets: [
+  //       {
+  //         label: "Dataset 1",
+  //         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+  //         backgroundColor: "rgba(255, 99, 132, 0.5)",
+  //       },
+  //       {
+  //         label: "Dataset 2",
+  //         data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+  //         backgroundColor: "rgba(53, 162, 235, 0.5)",
+  //       },
+  //     ],
+  //   };
 
-const barData = {
+  const barData = {
     labels,
     datasets: [
       {
         label: "Stock Price",
-        data: data.map(stock => stock.price),
+        data: data.map((stock) => stock.price),
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
-     
     ],
-}
-  return <Bar options={options} data={barData} />;
+  };
+  return (
+    <div style={{ width: "600px", margin: "0 auto" }}>
+      <Bar options={options} data={barData} />
+    </div>
+  );
 }

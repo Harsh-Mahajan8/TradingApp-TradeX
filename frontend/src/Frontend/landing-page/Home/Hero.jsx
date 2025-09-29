@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 function Hero() {
   return (
-    <div className="container mb-[6rem]">
+    <div className="container mt-[4rem] mb-[6rem]">
       <div className="row text-center">
         <img src="Home/landing.png" alt="homeHero" className="mb-5 w-[55rem!important] mx-auto " />
         <h2>Invest in everything</h2>

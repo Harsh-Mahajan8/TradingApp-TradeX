@@ -11,7 +11,7 @@ const Orders = () => {
         <div className="no-orders">
           <p>You haven't placed any orders today</p>
 
-          <Link to={"/"} className="btn">
+          <Link to={"/tradeX"} className="btn">
             Get started
           </Link>
         </div>

@@ -172,5 +172,5 @@ ul {
   @apply text-[#646464];
 }
 .row{
-  @apply pt-[1!important] mt-[0!important] mb-[1!important]
+  @apply pt-[1!important] mt-[0!important] mb-[1]
 }
