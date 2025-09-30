@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 const orderRoute = require("./Routes/OrderRoute.js");
 
 const { cronController } = require('./Controllers/NewOrder.js');
-const authRoute = require("./Routes/AuthRoute.js");
+const authAndUserRoute = require("./Routes/AuthAndUserRoute.js");
 const watchlistRoute = require("./Routes/WatchListRoute.js");
 const LoadDataRoute = require("./Routes/LoadDataRoute.js");
 const { userVerification } = require('./Middlewares/AuthMiddleware.js');
@@ -31,8 +31,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/load", userVerification, LoadDataRoute)
-app.use("/user", authRoute);
-
+app.use("/user", authAndUserRoute);
 app.use("/watchlist", userVerification, watchlistRoute);
 
 app.use("/order", userVerification, orderRoute)

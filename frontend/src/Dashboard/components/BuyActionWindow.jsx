@@ -8,14 +8,13 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 
-
 function BuyActionWindow({ uid }) {
   const [orderData, setOrderdata] = useState({
     name: "",
     price: 0.0,
     qty: 1,
     mode: "BUY",
-    product: "",
+    product: null,
   });
   const context = useContext(GeneralContext);
 
@@ -35,14 +34,13 @@ function BuyActionWindow({ uid }) {
   };
 
   return (
-   
-      <div
-        className="shadow-md border-zinc-400 ps-2 pb-3 pt-0 rounded-md"
-        id="buy-window"
-      >
-        <span className="row mb-2 h-10 bg-blue-400 px-3 rounded-t text-white font-semibold">
-          {uid}
-        </span>
+    <div
+      className="shadow-md border-zinc-400 ps-2 pb-3 pt-0 rounded-md"
+      id="buy-window"
+    >
+      <span className="row mb-2 h-10 bg-blue-400 px-3 rounded-t text-white font-semibold">
+        {uid}
+      </span>
 
       <Box
         component="form"
@@ -92,7 +90,34 @@ function BuyActionWindow({ uid }) {
         </RadioGroup>
       </FormControl>
       <div className="buttons flex justify-between mt-4">
-        <span className="text-[0.8em] ps-2">Margin required ₹140.65</span>
+        <span className="text-[0.8em] ps-2">
+          {orderData.product ? (
+            orderData.product == "CNC" ? (
+              <>
+                <div className="text-[1.0151rem] font-semibold">
+                  CNC / Delivery
+                </div>
+                {`Funds required = ₹${(orderData.price * orderData.qty).toFixed(
+                  2
+                )}`}
+              </>
+            ) : (
+              <>
+                <div className="text-[1.0151rem] font-semibold">
+                  MIS / Intraday
+                </div>
+                {`Margin required = ₹${(
+                  orderData.price *
+                  orderData.qty *
+                  0.2
+                ).toFixed(2)}`} <br />
+                MIS – Position will auto square-off at 3:15 PM
+              </>
+            )
+          ) : (
+            ""
+          )}
+        </span>
         <div className="">
           <button className="buyActionBtn" onClick={handleBuyClick}>
             Buy
@@ -106,7 +131,6 @@ function BuyActionWindow({ uid }) {
         </div>
       </div>
     </div>
-   
   );
 }
 

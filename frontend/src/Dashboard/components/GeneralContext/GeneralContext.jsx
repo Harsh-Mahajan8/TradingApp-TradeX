@@ -24,6 +24,7 @@ const GeneralContext = createContext({
   refreshWatchList: () => {},
   selectedStock: "",
   handleLogout: () => {},
+  updateUserData: () => {},
 });
 
 export const GeneralContextProvider = ({ children }) => {
@@ -49,10 +50,45 @@ export const GeneralContextProvider = ({ children }) => {
     } catch (error) {
       console.error("Error fetching user:", error);
       setUserData("");
-      window.location.href = "http://localhost:5174/login";
+      navigate("/login");
     }
   };
-
+  const updateUserData = async (newuserData) => {
+    try {
+      if (newuserData.equityBalance) {
+        newuserData = {
+          ...newuserData,
+          openingBalance: userData.openingBalance + 50000,
+          availableCash: userData.availableCash + 50000,
+          availableMargin: userData.availableMargin + 50000,
+        };
+      }
+      const res = await axios.post(
+        "http://localhost:3002/user/updateuserdata",
+        {
+          newuserData,
+        }
+      );
+      setUserData((prev) => ({ ...prev, ...newuserData }));
+      const { msg, status } = res.data;
+      console.log("data updated", res);
+      if (status === "success") {
+        toast.success(msg, {
+          position: "top-right",
+        });
+        await refreshUserData();
+      } else {
+        toast.error(msg, {
+          position: "top-right",
+        });
+      }
+    } catch (error) {
+      console.error("Error updating user data:", error);
+      toast.error("Failed to update user data", {
+        position: "top-right",
+      });
+    }
+  };
   const refreshOrders = async () => {
     try {
       // const res = await axios.get("http://localhost:3002/load/orders");
@@ -232,6 +268,7 @@ export const GeneralContextProvider = ({ children }) => {
         userData,
         refreshUserData,
         handleLogout,
+        updateUserData,
       }}
     >
       {children}

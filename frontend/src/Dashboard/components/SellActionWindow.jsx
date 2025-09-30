@@ -90,7 +90,34 @@ function SellActionWindow({ uid }) {
         </RadioGroup>
       </FormControl>
       <div className="buttons flex justify-between mt-4">
-        <span className="text-[0.8em] ps-2">Margin required ₹140.65</span>
+        <span className="text-[0.8em] ps-2">
+          {orderData.product ? (
+            orderData.product == "CNC" ? (
+              <>
+                <div className="text-[1.0151rem] font-semibold">
+                  CNC / Delivery
+                </div>
+                {`Funds credited = ₹${(orderData.price * orderData.qty).toFixed(
+                  2
+                )}`}
+              </>
+            ) : (
+              <>
+                <div className="text-[1.0151rem] font-semibold">
+                  MIS / Intraday
+                </div>
+                {`Margin released = ₹${(
+                  orderData.price *
+                  orderData.qty *
+                  0.2
+                ).toFixed(2)}`} <br />
+                MIS – Position will auto square-off at 3:15 PM
+              </>
+            )
+          ) : (
+            ""
+          )}
+        </span>
         <div className="">
           <button className="buyActionBtn" onClick={handleSellClick}>
             Sell

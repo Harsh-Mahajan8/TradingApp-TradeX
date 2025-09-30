@@ -13,8 +13,8 @@ module.exports.sellOrderController = async (req, res) => {
         if (!name || !qty) return res.status(400).json({ msg: "Missing fields", status: "error" });
 
         // Load docs inside the session - check if they belong to the current user
-        const pos = await PositionModel.findOne({ name, product }).session(session);
-        const hold = await HoldingModel.findOne({ name, product }).session(session);
+        const pos = await PositionModel.findOne({ name, product, user: req.user._id }).session(session);
+        const hold = await HoldingModel.findOne({ name, product, user: req.user._id }).session(session);
 
         // Verify ownership by checking if user has these positions/holdings
         const userPositions = await userModel.findById(req.user._id).select('positions').session(session);
@@ -28,11 +28,12 @@ module.exports.sellOrderController = async (req, res) => {
         const totalQty = posQty + holdQty;
 
         if (totalQty < qty) {
-            // Not enough -> save cancelled order and abort
             const cancelledOrder = await OrderModel.create([{
                 name, qty, price, orderStatus: "Cancelled", mode, product
             }], { session });
-            await userModel.findOneAndUpdate({ _id: req.user._id }, { $push: { orders: cancelledOrder[0]._id } }, { session });
+            const user = await userModel.findById(req.user._id).session(session);
+            user.orders.push(cancelledOrder[0]._id);
+            await user.save({ session });
             await session.commitTransaction();
             session.endSession();
             return res.status(200).json({ msg: "Insufficient quantity, order cancelled", status: "error" });
@@ -51,7 +52,7 @@ module.exports.sellOrderController = async (req, res) => {
             const sellFromPos = Math.min(remainingToSell, posQty);
             const newPosQty = posQty - sellFromPos;
             if (newPosQty <= 0) {
-                await PositionModel.deleteOne({ _id: pos._id }).session(session);
+                await PositionModel.deleteOne({ _id: pos._id, user: req.user._id }).session(session);
                 await userModel.findOneAndUpdate({ _id: req.user._id }, { $pull: { positions: pos._id } }, { session });
 
             } else {
@@ -72,8 +73,23 @@ module.exports.sellOrderController = async (req, res) => {
                 hold.qty = newHoldQty;
                 await hold.save({ session });
             }
-            remainingToSell -= sellFromHold;
+        remainingToSell -= sellFromHold;
         }
+
+        //userwallet update
+        const user = await userModel.findById(req.user._id).session(session);
+        const tradeValue = qty * price;
+        if (product === "CNC") {
+            user.availableCash += tradeValue;
+        } else {
+            const marginBlocked = tradeValue * 0.2;//20% price
+            user.availableCash += marginBlocked;
+            user.availableMargin += tradeValue;
+            user.usedMargin -= marginBlocked;
+        }
+
+        user.equityBalance = user.availableCash + user.usedMargin; // simplified
+        await user.save({ session });
 
         await session.commitTransaction();
         session.endSession();

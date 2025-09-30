@@ -18,17 +18,17 @@ const Summary = ({ holdingLen, tInvestment, currValue, lp }) => {
 
         <div className="data">
           <div className="first">
-            <h3>3.74k</h3>
+            <h3>₹{(userData.availableMargin)/1000}k</h3>
             <p>Margin available</p>
           </div>
           <hr />
 
           <div className="second">
             <p>
-              Margins used <span>0</span>{" "}
+              Margins used <span>₹{(userData.usedMargin/1000)}k</span>{" "}
             </p>
             <p>
-              Opening balance <span>3.74k</span>{" "}
+              Opening balance <span>₹{(userData.equityBalance)/1000}k</span>{" "}
             </p>
           </div>
         </div>

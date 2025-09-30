@@ -19,8 +19,12 @@ const UserSchema = new Schema({
         type: Date,
         default: new Date(),
     },
-    equityBalance: Number, // free cash
-    marginUsed: Number,
+   // Account Balances
+    openingBalance: { type: Number, default: 0 },
+    equityBalance: { type: Number, default: 0 },
+    availableCash: { type: Number, default: 0 },
+    availableMargin: { type: Number, default: 0 },
+    usedMargin: { type: Number, default: 0 },
     holdings: [
         {
             type: Schema.Types.ObjectId,

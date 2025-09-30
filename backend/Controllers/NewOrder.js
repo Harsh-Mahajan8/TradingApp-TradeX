@@ -10,35 +10,33 @@ module.exports.newOrderController = async (req, res) => {
         const { name, qty, price, mode, product, orderStatus } = req.body;
         const { avgCost: avg, percent: net, ycp } = await StockDataModel.findOne({ name });
         const day = (((price - ycp) / ycp) * 100);
-        // console.log(name, qty, price, mode, product, orderStatus, avg, net, ycp, day);
-        // console.log("Order executed")
-        //same in orderMOdel
         const newOrder = new OrderModel({
             name, qty, price, orderStatus, mode, product
         })
         await newOrder.save();
         //push that position in user.position
-        await userModel.findOneAndUpdate({ _id: req.user._id }, { $push: { orders: newOrder._id } });
+        const user = await userModel.findById(req.user._id);
+        user.orders.push(newOrder._id);
 
 
         //if statuc is executed //always executed incase of buy order
 
         // save in position model ->
         //if alredy same stock is present then simply add the qty and compute avg price
-        const stockInPosition = await PositionModel.findOne({ name, product });
+        const stockInPosition = await PositionModel.findOne({ name, product, user: req.user._id });
         if (stockInPosition) {
             //update qty
             //update avg price
             const newqty = stockInPosition.qty + qty;
             const newAvg = ((stockInPosition.avg * stockInPosition.qty + price * qty) / newqty);
-            await PositionModel.findOneAndUpdate({ name, product }, { qty: newqty, avg: newAvg });
+            await PositionModel.findOneAndUpdate({ name, product, user: req.user._id }, { qty: newqty, avg: newAvg });
             console.log("posiiton updated in Buy stock api")
             //do noy push incase of update order in position model
             //push into user.position
         } else {
             //if not present then create new position doc.
             const newPosit = new PositionModel({
-                product, name, qty, avg: price, price, day
+                product, name, qty, avg: price, price, day,user: req.user._id
             });
             await newPosit.save();
             //do not use push use addtoset as there should not be duplicate entries
@@ -54,10 +52,28 @@ module.exports.newOrderController = async (req, res) => {
             //     console.log("new position is saved in Byu api", res)
             // })
         }
+
+        //update userwallet
+        const tradeValue = qty * price;
+        if (product === "CNC") {
+            user.availableCash -= tradeValue;
+        } else {
+            const marginBlocked = tradeValue * 0.2;//20% price
+            user.availableCash -= marginBlocked;
+            user.availableMargin -= tradeValue;
+            user.usedMargin += marginBlocked;
+        }
+
+        user.equityBalance = user.availableCash + user.usedMargin; // simplified
+
+        await user.save();
         return res.json({
             msg: `${qty} ${name} stock bought`,
             status: "success"
         });
+
+
+
 
         //push that position in user.position
         // after 24 hrs remove from posiiton 
