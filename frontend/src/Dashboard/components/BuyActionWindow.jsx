@@ -11,7 +11,7 @@ import FormLabel from "@mui/material/FormLabel";
 function BuyActionWindow({ uid }) {
   const [orderData, setOrderdata] = useState({
     name: "",
-    price: 0.0,
+    price: 0,
     qty: 1,
     mode: "BUY",
     product: null,
@@ -54,9 +54,10 @@ function BuyActionWindow({ uid }) {
           id="qty"
           label="Qty."
           onChange={(e) =>
-            setOrderdata({ ...orderData, qty: parseInt(e.target.value) || 1 })
+            setOrderdata({ ...orderData, qty: parseInt(e.target.value)||0})
           }
           value={orderData.qty}
+          required
         />
         <TextField
           size="small"
@@ -65,10 +66,11 @@ function BuyActionWindow({ uid }) {
           onChange={(e) =>
             setOrderdata({
               ...orderData,
-              price: parseFloat(e.target.value) || 0,
+              price: parseFloat(e.target.value)||0,
             })
           }
           value={orderData.price}
+          required
         />
       </Box>
       <FormControl className="ms-[.82rem!important]">
@@ -111,7 +113,7 @@ function BuyActionWindow({ uid }) {
                   orderData.qty *
                   0.2
                 ).toFixed(2)}`} <br />
-                MIS – Position will auto square-off at 3:15 PM
+                MIS – Position will auto square-off at 11:59 PM
               </>
             )
           ) : (

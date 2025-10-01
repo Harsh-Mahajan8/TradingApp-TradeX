@@ -87,8 +87,12 @@ module.exports.sellOrderController = async (req, res) => {
             user.availableMargin += tradeValue;
             user.usedMargin -= marginBlocked;
         }
+        //profit of selling
 
-        user.equityBalance = user.availableCash + user.usedMargin; // simplified
+        //value of that stock
+        let pnl = (sellPrice - avgBuyPrice) * qtySold;
+
+        user.equityBalance = user.availableCash + user.usedMargin + pnl; // simplified
         await user.save({ session });
 
         await session.commitTransaction();

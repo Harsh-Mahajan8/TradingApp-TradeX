@@ -19,7 +19,7 @@ const UserSchema = new Schema({
         type: Date,
         default: new Date(),
     },
-   // Account Balances
+    // Account Balances
     openingBalance: { type: Number, default: 0 },
     equityBalance: { type: Number, default: 0 },
     availableCash: { type: Number, default: 0 },
@@ -48,7 +48,11 @@ const UserSchema = new Schema({
 });
 
 UserSchema.pre("save", async function () {
-    this.password = await bcrypt.hash(this.password, 12);
+    // this.password = await bcrypt.hash(this.password, 12);
+
+    if (this.isModified("password")) {
+        this.password = await bcrypt.hash(this.password, 12);
+    }
 });
 
 module.exports = model("user", UserSchema);
