@@ -3,12 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
-import API_BASE_URL from "./api";
 import accountOpenSvg from "../../assets/Signup/account_open.svg";
 
 function HeroSignUp() {
   const navigate = useNavigate();
-  const url = API_BASE_URL; //for deployment
+  const url = "http://localhost:3002"; //for deployment
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",

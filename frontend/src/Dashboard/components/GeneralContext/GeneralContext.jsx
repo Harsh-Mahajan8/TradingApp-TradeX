@@ -3,7 +3,6 @@ import BuyActionWindow from "../BuyActionWindow";
 import SellActionWindow from "../SellActionWindow";
 import axios from "axios";
 axios.defaults.withCredentials = true;
-import API_BASE_URL from "./api";
 
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -47,7 +46,7 @@ export const GeneralContextProvider = ({ children }) => {
     type: "",
     uuid: "",
   });
-  const url = API_BASE_URL; //for deployment
+  const url = "http://localhost:3002"; //for deployment
   //data refresh
   const refreshUserData = async () => {
     try {
