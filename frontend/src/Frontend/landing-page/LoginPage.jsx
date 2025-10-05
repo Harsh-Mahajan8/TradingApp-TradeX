@@ -10,7 +10,7 @@ function LoginPage() {
     email: "",
     password: "",
   });
-  const url = "https://tradex-backend-0ftq.onrender.com"; //for deployment
+  const url = "http://localhost:3002"; //for deployment
   const navigate = useNavigate();
   const { email, password } = inputValue;
 

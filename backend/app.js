@@ -21,24 +21,12 @@ mongoose.connect(URL).then(() => {
 app.listen(PORT, () => {
     console.log("Server is working at port " + PORT);
 })
-// Define allowed origins
-const allowedOrigins = [
-    "http://localhost:5173",                     // Vite dev server
-    "https://tradingapp-tradex-1.onrender.com"   // Your deployed frontend
-];
 
 app.use(cors({
-    origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) === -1) {
-            return callback(new Error("CORS policy does not allow this origin"), false);
-        }
-        return callback(null, true);
-    },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true
+  origin: [process.env.FRONTEND_URL, "http://localhost:5173"], // allow only your frontend
+  credentials: true,
 }));
+
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser());
