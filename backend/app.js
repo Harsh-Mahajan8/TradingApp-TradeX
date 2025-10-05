@@ -16,21 +16,22 @@ const { userVerification } = require('./Middlewares/AuthMiddleware.js');
 const { PORT = 3002, MONGO_URL: URL } = process.env;
 const app = express();
 mongoose.connect(URL).then(() => {
-    console.log("Mongo is Connected");
+  console.log("Mongo is Connected");
 }).catch((e) => console.log("Mongo Error"));
 app.listen(PORT, () => {
-    console.log("Server is working at port " + PORT);
+  console.log("Server is working at port " + PORT);
 })
 
 app.use(cors({
   origin: ["https://tradingapp-tradex-nmgi.onrender.com/", "http://localhost:5173"], // allow only your frontend
-  credentials: true,
+  credentials: true, credentials: true, // important since you are using withCredentials
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 }));
 
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser());
-app.get("/",(req, res) => {
+app.get("/", (req, res) => {
   res.json("You are at root dir")
 })
 app.use("/load", userVerification, LoadDataRoute)
