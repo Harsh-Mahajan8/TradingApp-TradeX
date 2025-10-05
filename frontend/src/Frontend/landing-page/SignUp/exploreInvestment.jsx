@@ -1,3 +1,8 @@
+import stocksAcopSvg from "../../assets/Signup/stocks-acop.svg";
+import mfAcopSvg from "../../assets/Signup/mf-acop.svg";
+import ipoAcopSvg from "../../assets/Signup/ipo-acop.svg";
+import foAcopSvg from "../../assets/Signup/fo-acop.svg";
+
 function ExploreInvestment() {
   return (
     <div className="container my-[6rem] md:px-[6rem!important]">
@@ -7,7 +12,7 @@ function ExploreInvestment() {
       <div className="row my-5  ps-[3rem!important] ">
         <div className="col-md row">
           <div className="col-4">
-            <img src="/Signup/stocks-acop.svg" alt="" />
+            <img src={stocksAcopSvg} alt="" />
           </div>
           <div className="col-6">
             <h5>Stock</h5>
@@ -18,7 +23,7 @@ function ExploreInvestment() {
         </div>
         <div className="col-md row">
           <div className="col-4">
-            <img src="/Signup/mf-acop.svg" alt="" />
+            <img src={mfAcopSvg} alt="" />
           </div>
           <div className="col-6">
             <h5>Mutual funds</h5>
@@ -32,7 +37,7 @@ function ExploreInvestment() {
         {" "}
         <div className="col-md row">
           <div className="col-4">
-            <img src="/Signup/ipo-acop.svg" alt="" />
+            <img src={ipoAcopSvg} alt="" />
           </div>
           <div className="col-6">
             <h5>IPO</h5>
@@ -43,7 +48,7 @@ function ExploreInvestment() {
         </div>
         <div className="col-md row">
           <div className="col-4">
-            <img src="/Signup/fo-acop.svg" alt="" />
+            <img src={foAcopSvg} alt="" />
           </div>
           <div className="col-6">
             <h5>Futures & options</h5>

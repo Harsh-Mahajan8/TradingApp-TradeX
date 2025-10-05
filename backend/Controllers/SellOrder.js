@@ -90,7 +90,7 @@ module.exports.sellOrderController = async (req, res) => {
         //profit of selling
 
         //value of that stock
-        let pnl = (sellPrice - avgBuyPrice) * qtySold;
+        let pnl = tradeValue - (pos.price*qty);
 
         user.equityBalance = user.availableCash + user.usedMargin + pnl; // simplified
         await user.save({ session });

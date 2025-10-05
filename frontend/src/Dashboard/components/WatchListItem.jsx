@@ -10,7 +10,7 @@ import {
 } from "@mui/icons-material";
 import Tooltip from "@mui/material/Tooltip";
 import Grow from "@mui/material/Grow";
-import WatchlistContext from "./GeneralContext/WishlistContext";
+import WatchlistContext from "./GeneralContext/WatchlistContext";
 
 function WatchListItem({ stock, handleGraph }) {
   const BuyContext = useContext(GeneralContext);
@@ -33,7 +33,9 @@ function WatchListItem({ stock, handleGraph }) {
       onMouseLeave={handleMouseLeave}
     >
       <div className={`item ${stock.percent < 0 ? "down" : "up"}`}>
-        <p className={`item ${stock.percent < 0 ? "down" : "up"}`} >{stock.name}</p>
+        <p className={`item ${stock.percent < 0 ? "down" : "up"}`}>
+          {stock.name}
+        </p>
         <div className="itemInfo">
           <span className={`percent mx-2 ${stock.percent < 0 ? "down" : "up"}`}>
             {stock.percent > 0 ? "+" : ""}
@@ -47,15 +49,16 @@ function WatchListItem({ stock, handleGraph }) {
           <span className="price mx-2">₹ {stock.price}</span>
         </div>
       </div>
-      {showWatchlistAction && <WatchListAction uuid={stock.name} handleGraphClick = {handleGraph}/>}
+      {showWatchlistAction && (
+        <WatchListAction uuid={stock.name} handleGraphClick={handleGraph} />
+      )}
     </li>
   );
 }
 
 const WatchListAction = ({ uuid, handleGraphClick }) => {
   const { handleRemove } = useContext(WatchlistContext);
-  const { openBuyWindow, openSellWindow} =
-    useContext(GeneralContext);
+  const TradeWindowCxt = useContext(GeneralContext);
 
   // Refresh the watchlist data
   return (
@@ -69,9 +72,7 @@ const WatchListAction = ({ uuid, handleGraphClick }) => {
         >
           <button
             className="buy"
-            onClick={() => {
-              openBuyWindow(uuid);
-            }}
+            onClick={() => TradeWindowCxt.setTradeWindow({ type: "Buy", uuid })}
           >
             B
           </button>
@@ -84,9 +85,9 @@ const WatchListAction = ({ uuid, handleGraphClick }) => {
         >
           <button
             className="sell"
-            onClick={() => {
-              openSellWindow(uuid);
-            }}
+            onClick={() =>
+              TradeWindowCxt.setTradeWindow({ type: "Sell", uuid })
+            }
           >
             S
           </button>
@@ -116,7 +117,6 @@ const WatchListAction = ({ uuid, handleGraphClick }) => {
             className="action"
             onClick={() => {
               handleRemove(uuid);
-     
             }}
           >
             <Delete className="icon" />

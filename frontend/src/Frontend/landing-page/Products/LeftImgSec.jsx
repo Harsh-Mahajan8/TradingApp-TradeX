@@ -1,3 +1,6 @@
+import rgooglePlayBadgeSvg from "../../assets/Products/Rgoogle-play-badge.svg";
+import rappstoreBadgeSvg from "../../assets/Products/Rappstore-badge.svg";
+
 function LeftImgSec({ img, title, des, link1Text, link2Text }) {
   return (
     <div className="container ">
@@ -27,7 +30,7 @@ function LeftImgSec({ img, title, des, link1Text, link2Text }) {
               <a href="">
                 <img
                   className="w-[12rem] h-[2.7rem] "
-                  src="/Products/Rgoogle-play-badge.svg"
+                  src={rgooglePlayBadgeSvg}
                   alt=""
                 />
               </a>
@@ -36,7 +39,7 @@ function LeftImgSec({ img, title, des, link1Text, link2Text }) {
               <a href="">
                 <img
                   className="w-[12rem] h-[2.7rem]"
-                  src="/Products/Rappstore-badge.svg"
+                  src={rappstoreBadgeSvg}
                   alt=""
                 />
               </a>{" "}

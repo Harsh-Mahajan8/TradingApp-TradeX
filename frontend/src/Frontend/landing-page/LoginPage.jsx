@@ -1,9 +1,10 @@
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
-import { Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import crossMarkPng from "../assets/Navbar/cross-mark.png";
 function LoginPage() {
   const [inputValue, setInputValue] = useState({
     email: "",
@@ -43,9 +44,9 @@ function LoginPage() {
       const { success, message } = data;
       if (success) {
         handleSuccess(message);
-        
+
         setTimeout(() => {
-          navigate("/tradeX")
+          navigate("/tradeX");
           // window.location.href = "http://localhost:5173/tradeX";
         }, 1000);
       } else {
@@ -67,11 +68,7 @@ function LoginPage() {
       <div className="row justify-center bg-gradient-to-b from-indigo-500 to-pink-700 text-white rounded-r-md">
         <div className="col-md-1 bg-white"></div>
         <div className="flex flex-col justify-center items-center col-md-5 bg-white rounded-xl m-1 p-4">
-          <img
-            src="/Navbar/cross-mark.png"
-            alt=""
-            className="w-[10rem] py-[2rem]"
-          />
+          <img src={crossMarkPng} alt="" className="w-[10rem] py-[2rem]" />
           <span className="ps-2 bg-gradient-to-b from-indigo-500 to-pink-700 bg-clip-text text-transparent font-bold text-[3rem]">
             TradeX
           </span>

@@ -27,10 +27,10 @@ function BuyActionWindow({ uid }) {
       product: orderData.product,
       orderStatus: "Executed",
     });
-    context.closeBuyWindow();
+    context.closeTradeWindow();
   };
   const handleCancelBtn = () => {
-    context.closeBuyWindow();
+    context.closeTradeWindow();
   };
 
   return (

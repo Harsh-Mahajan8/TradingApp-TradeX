@@ -2,9 +2,12 @@ import { Link } from "react-router-dom";
 import formatTine from "../timeFormat";
 import GeneralContext from "./GeneralContext/GeneralContext";
 import { useContext } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 const Orders = () => {
-  const {orders}=useContext(GeneralContext);
+  const {userData}=useContext(GeneralContext);
+  let orders = userData.orders;
   
+  if (!userData?.username) return <CircularProgress disableShrink />;
   return (
     <div className="orders">
       {orders.length == 0 && (

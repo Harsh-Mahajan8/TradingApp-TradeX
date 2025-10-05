@@ -1,23 +1,19 @@
-import { useState, useEffect, useRef, Fragment } from "react";
+import { useState, useRef, Fragment } from "react";
 import { Pagination } from "@mui/material";
 import WatchListItem from "./WatchListItem";
-import axios from "axios";
 import StockListItem from "./StockListItem";
 import { Tooltip } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import GeneralContext from "./GeneralContext/GeneralContext";
 import { useContext } from "react";
 import { DoughnutChart } from "./DoughnutChart";
-
-import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
-import DialogTitle from "@mui/material/DialogTitle";
-import DialogContent from "@mui/material/DialogContent";
-import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import Typography from "@mui/material/Typography";
+import WatchlistContext from "./GeneralContext/WatchlistContext";
+import CircularProgress from "@mui/material/CircularProgress";
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
@@ -36,21 +32,16 @@ const StockDetailList = () => {
     setOpen(false);
   };
 
-  const [stockData, setStockData] = useState([]);
+  // const [stockData, setStockData] = useState([]);
   const [searchResults, setSearchResults] = useState(null);
   const searchQuery = useRef();
-  const { watchList } = useContext(GeneralContext);
-  useEffect(() => {
-    axios.get("http://localhost:3002/load/stocks").then((res) => {
-      setStockData(res.data || []);
-    });
-  }, []);
-
+  const { userData } = useContext(GeneralContext);
+  const { stockData } = useContext(WatchlistContext);
   const [selectWatchList, setSelectWatchList] = useState(false);
-  const stockList = selectWatchList ? watchList : stockData;
+  const stockList = selectWatchList ? userData.watchlist : stockData;
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const totalPages = Math.max(1, Math.ceil(stockList.length / itemsPerPage));
+  const totalPages = Math.max(1, Math.ceil(stockList?.length / itemsPerPage));
 
   // Calculate the range of items to display
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -78,15 +69,16 @@ const StockDetailList = () => {
       setSearchResults(null);
       return;
     }
-
-    const result = stockList.find(
+    const results = stockList.filter(
       (stock) =>
         stock.name && stock.name.toLowerCase().includes(query.toLowerCase())
     );
-    setSearchResults(result || null);
+    setSearchResults(results.length ? results : null);
+
     console.log("Search query:", query);
   };
 
+  if (!userData?.username) return <CircularProgress disableShrink />;
   return (
     <div
       className="watchlist-container mt-1"

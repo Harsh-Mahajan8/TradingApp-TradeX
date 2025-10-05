@@ -1,16 +1,19 @@
 import { NavLink, Link } from "react-router-dom";
 import NavDrop from "./NavDrop.jsx";
+import crossMarkPng from "../../assets/Navbar/cross-mark.png";
+import kiteLogoSvg from "../../assets/Navdrop/kite-logo.svg";
+import consoleSvg from "../../assets/Navdrop/console.svg";
+import kiteConnectSvg from "../../assets/Navdrop/kite-connect.svg";
+import coinSvg from "../../assets/Navdrop/coin.svg";
+import varsityPng from "../../assets/Navdrop/varsity.png";
+import tqnaPng from "../../assets/Navdrop/tqna.png";
 
 function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg bg-white py-2 border-bottom sticky-top">
       <div className="container-fluid container ">
         <Link className="navbar-brand fw-bold d-flex align-items-center" to="/">
-          <img
-            className="w-6 h-6"
-            src="/Navbar/cross-mark.png"
-            alt="TradeX Logo"
-          />
+          <img className="w-6 h-6" src={crossMarkPng} alt="TradeX Logo" />
           <span className="fs-4 ps-2 bg-gradient-to-b from-indigo-500 to-pink-700 bg-clip-text text-transparent font-bold">
             TradeX
           </span>
@@ -33,11 +36,7 @@ function Navbar() {
         >
           <div className="offcanvas-header">
             <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
-              <img
-                className="w-6 h-6"
-                src="/Navbar/cross-mark.png"
-                alt="TradeX Logo"
-              />
+              <img className="w-6 h-6" src={crossMarkPng} alt="TradeX Logo" />
             </h5>
             <button
               type="button "
@@ -112,28 +111,28 @@ function Navbar() {
                   <div className="row p-6 text-center mx-auto mt-[0!important]">
                     <div className="col-3">
                       <Link to="/login">
-                        <img src="/Navdrop/kite-logo.svg" alt="kite" />
+                        <img src={kiteLogoSvg} alt="kite" />
                         <header>Kite</header>
                         <p>Trading Platform</p>
                       </Link>
                     </div>
                     <div className="col-3">
                       <a href="#">
-                        <img src="/Navdrop/console.svg" alt="" />
+                        <img src={consoleSvg} alt="" />
                         <header>Console</header>
                         <p>Backoffice</p>
                       </a>
                     </div>
                     <div className="col-3">
                       <a href="#">
-                        <img src="/Navdrop/kite-connect.svg" alt="" />
+                        <img src={kiteConnectSvg} alt="" />
                         <header>Kite Connect</header>
                         <p>Trading APIs</p>
                       </a>
                     </div>
                     <div className="col-3">
                       <a href="#">
-                        <img src="/Navdrop/coin.svg" alt="" />
+                        <img src={coinSvg} alt="" />
                         <header>Coin</header>
                         <p>Mutual funds</p>
                       </a>
@@ -158,7 +157,7 @@ function Navbar() {
                       <header>Education</header>
                       <img
                         className="w-9 ms-3 my-3"
-                        src="/Navdrop/varsity.png"
+                        src={varsityPng}
                         alt="varsity"
                       />
                       <ul>
@@ -168,11 +167,7 @@ function Navbar() {
                       </ul>
                     </div>
                     <div className="col-2 pt-[1.82rem] ms-[5.6rem]">
-                      <img
-                        className="w-9 my-3 "
-                        src="/Navdrop/tqna.png"
-                        alt="tqna"
-                      />
+                      <img className="w-9 my-3 " src={tqnaPng} alt="tqna" />
                       <ul>
                         <li className="-ms-3">
                           <a href="">Trading Q&A</a>

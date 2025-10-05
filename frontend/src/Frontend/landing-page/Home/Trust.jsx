@@ -1,3 +1,6 @@
+import ecosystemPng from "../../assets/Home/ecosystem.png";
+import pressLogosPng from "../../assets/Home/press-logos.png";
+
 function Trust() {
   return (
     <div className="trust container pt-[2.33rem]">
@@ -31,7 +34,7 @@ function Trust() {
         </div>
         <div className="img col-md-7 text-center">
           <div className="row">
-            <img className="p-3" src="/Home/ecosystem.png" alt="" />
+            <img className="p-3" src={ecosystemPng} alt="" />
           </div>
           <div className="row mt-3">
             <div className="col-7">
@@ -48,7 +51,7 @@ function Trust() {
         </div>
         <img
           className="col-md-8 py-[3rem] mx-auto"
-          src="Home/press-logos.png"
+          src={pressLogosPng}
           alt=""
         />
       </div>

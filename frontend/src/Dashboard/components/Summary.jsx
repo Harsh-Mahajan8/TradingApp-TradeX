@@ -1,9 +1,18 @@
 import { useContext } from "react";
 import GeneralContext from "./GeneralContext/GeneralContext";
-const Summary = ({ holdingLen, tInvestment, currValue, lp }) => {
+const Summary = ({ lp }) => {
   const safeLp = lp || { num: 0, per: 0 };
   const {userData} = useContext(GeneralContext);
-
+  const holdings = userData?.holdings || []
+  const holdingLen = holdings.length;
+  const tInvestment = holdings.reduce(
+      (sum, s) => sum + (s.price || 0) * (s.qty || 0),
+      0
+    );
+    const currValue = holdings.reduce(
+      (sum, s) => sum + (s.price || 0) * (s.qty || 0),
+      0
+    );
   return (
     <>
       <div className="username">

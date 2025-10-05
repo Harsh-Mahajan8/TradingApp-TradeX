@@ -1,3 +1,9 @@
+import acopIndividualSvg from "../../assets/Signup/acop-individual.svg";
+import acopHufSvg from "../../assets/Signup/acop-huf.svg";
+import acopNriSvg from "../../assets/Signup/acop-nri.svg";
+import acopMinorSvg from "../../assets/Signup/acop-minor.svg";
+import acopCorporateSvg from "../../assets/Signup/acop-corporate.svg";
+
 function DifferentAcc() {
   return (
     <div className="container">
@@ -7,7 +13,7 @@ function DifferentAcc() {
           <div className="col-md px-4 py-2 m-3 border border-gray-300 rounded">
             <img
               className="bg-blue-50 rounded-[50%] p-1 relative right-10 top-5"
-              src="/Signup/acop-individual.svg"
+              src={acopIndividualSvg}
               alt=""
             />
             <h5 className="pb-3">Individual Account</h5>
@@ -18,7 +24,7 @@ function DifferentAcc() {
           <div className="col-md px-4 py-2 m-3 border border-gray-300 rounded">
             <img
               className="bg-blue-50 rounded-[50%] p-1 relative right-10 top-5"
-              src="/Signup/acop-huf.svg"
+              src={acopHufSvg}
               alt=""
             />
             <h5 className="pb-3">HUF Account</h5>
@@ -29,7 +35,7 @@ function DifferentAcc() {
           <div className="col-md px-4 py-2 m-3 border border-gray-300 rounded">
             <img
               className="bg-blue-50 rounded-[50%] p-1 relative right-10 top-5"
-              src="/Signup/acop-nri.svg"
+              src={acopNriSvg}
               alt=""
             />
             <h5 className="pb-3">NRI Account</h5>
@@ -42,7 +48,7 @@ function DifferentAcc() {
           <div className="col-md px-4 py-2 m-3 border border-gray-300 rounded">
             <img
               className="bg-blue-50 rounded-[50%] p-1 relative right-10 top-5"
-              src="/Signup/acop-minor.svg"
+              src={acopMinorSvg}
               alt=""
             />
             <h5 className="pb-3">Minor Account</h5>
@@ -54,7 +60,7 @@ function DifferentAcc() {
           <div className="col-md px-4 py-2 m-3 border border-gray-300 rounded">
             <img
               className="bg-blue-50 rounded-[50%] p-1 relative right-10 top-5"
-              src="/Signup/acop-corporate.svg"
+              src={acopCorporateSvg}
               alt=""
             />
             <h5 className="pb-3">Corporate / LLP/ Partnership</h5>

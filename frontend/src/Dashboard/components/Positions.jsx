@@ -2,9 +2,13 @@ import GeneralContext from "./GeneralContext/GeneralContext";
 import { useContext } from "react";
 import { VerticalChart } from "./VerticalChart";
 import { Link } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 const Positions = () => {
-  const { positions } = useContext(GeneralContext);
-
+  const { userData } = useContext(GeneralContext);
+  let positions = userData.positions;
+  
+  if (!userData?.username) return <CircularProgress disableShrink />;
+  
   return (
     <>
       <h3 className="title">Positions ({positions.length})</h3>

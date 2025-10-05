@@ -1,5 +1,5 @@
-import Footer from "./src/Frontend/landing-page/Footer";
-import Navbar from "./src/Frontend/landing-page/Navbar/Navbar";
+import Footer from "./landing-page/Footer";
+import Navbar from "./landing-page/Navbar/Navbar";
 import { Outlet } from "react-router-dom";
 
 function DefaultRoute() {

@@ -7,45 +7,51 @@ axios.defaults.withCredentials = true;
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 const GeneralContext = createContext({
-  openBuyWindow: () => {},
-  closeBuyWindow: () => {},
-  openSellWindow: () => {},
-  closeSellWindow: () => {},
-  buyStock: () => {},
-  sellStock: () => {},
-  orders: [],
-  holdings: [],
-  positions: [],
+  // openBuyWindow: () => {},
+  // closeBuyWindow: () => {},
+  // openSellWindow: () => {},
+  // closeSellWindow: () => {},
+  // buyStock: () => {},
+  // sellStock: () => {},
+  // orders: [],
+  // holdings: [],
+  // positions: [],
   userData: {},
-  refreshHoldings: () => {},
-  refreshPositions: () => {},
-  refreshOrders: () => {},
-  watchList: [],
-  refreshWatchList: () => {},
-  selectedStock: "",
+  // refreshHoldings: () => {},
+  // refreshPositions: () => {},
+  // refreshOrders: () => {},
+  // watchList: [],
+  // refreshWatchList: () => {},
+  // selectedStock: "",
   handleLogout: () => {},
   updateUserData: () => {},
+  setTradeWindow:() => {},
+  closeTradeWindow:() => {},
 });
 
 export const GeneralContextProvider = ({ children }) => {
   const navigate = useNavigate();
-  const [openWindow, setOpenWindow] = useState({
-    buy: false,
-    sell: false,
-  });
-  const [orders, setOrders] = useState([]);
-  const [holdings, setHoldings] = useState([]);
-  const [positions, setPositions] = useState([]);
-  const [watchList, setWatchList] = useState([]);
-  const [userData, setUserData] = useState({});
 
+  // const [openWindow, setOpenWindow] = useState({
+  //   buy: false,
+  //   sell: false,
+  // });
+  // const [orders, setOrders] = useState([]);
+  // const [holdings, setHoldings] = useState([]);
+  // const [positions, setPositions] = useState([]);
+  // const [watchList, setWatchList] = useState([]);
+  const [userData, setUserData] = useState({});
+  // const [selectedStockUid, setselectedStockUid] = useState("");
+  const [tradeWindowState, setTradeWindowState] = useState({ type: "", uuid: "" });
+
+  //data refresh
   const refreshUserData = async () => {
     try {
       const res = await axios.get("http://localhost:3002/load/userdata");
-      if (res.data && res.data.username) {
+      if (res.data?.username) {
         setUserData(res.data);
       } else {
-        setUserData("");
+        setUserData({});
       }
     } catch (error) {
       console.error("Error fetching user:", error);
@@ -53,6 +59,8 @@ export const GeneralContextProvider = ({ children }) => {
       navigate("/login");
     }
   };
+
+  //update userData
   const updateUserData = async (newuserData) => {
     try {
       if (newuserData.equityBalance) {
@@ -89,100 +97,104 @@ export const GeneralContextProvider = ({ children }) => {
       });
     }
   };
-  const refreshOrders = async () => {
-    try {
-      // const res = await axios.get("http://localhost:3002/load/orders");
-      // if (res.data) {
-      //   setOrders(res.data);
-      // }
-      setOrders(userData.orders || []);
-    } catch (error) {
-      console.error("Error fetching orders:", error);
-    }
-  };
+  // const refreshOrders = async () => {
+  //   try {
+  //     // const res = await axios.get("http://localhost:3002/load/orders");
+  //     // if (res.data) {
+  //     //   setOrders(res.data);
+  //     // }
+  //     setOrders(userData.orders || []);
+  //   } catch (error) {
+  //     console.error("Error fetching orders:", error);
+  //   }
+  // };
 
-  const refreshHoldings = async () => {
-    try {
-      // const res = await axios.get("http://localhost:3002/load/holdings");
-      // if (res.data) {
-      //   setHoldings(res.data);
-      // }
-      setHoldings(userData.holdings || []);
-    } catch (error) {
-      console.error("Error fetching holdings:", error);
-    }
-  };
+  // const refreshHoldings = async () => {
+  //   try {
+  //     // const res = await axios.get("http://localhost:3002/load/holdings");
+  //     // if (res.data) {
+  //     //   setHoldings(res.data);
+  //     // }
+  //     setHoldings(userData.holdings || []);
+  //   } catch (error) {
+  //     console.error("Error fetching holdings:", error);
+  //   }
+  // };
 
-  const refreshPositions = async () => {
-    try {
-      // const res = await axios.get("http://localhost:3002/load/positions");
-      // if (res.data) {
-      //   setPositions(res.data);
-      // }
-      setPositions(userData.positions || []);
-    } catch (error) {
-      console.error("Error fetching positions:", error);
-    }
-  };
+  // const refreshPositions = async () => {
+  //   try {
+  //     // const res = await axios.get("http://localhost:3002/load/positions");
+  //     // if (res.data) {
+  //     //   setPositions(res.data);
+  //     // }
+  //     setPositions(userData.positions || []);
+  //   } catch (error) {
+  //     console.error("Error fetching positions:", error);
+  //   }
+  // };
 
-  const refreshWatchList = async () => {
-    try {
-      // const res = await axios.get("http://localhost:3002/load/watchlist");
-      // if (res.data) {
-      //   setWatchList(res.data);
-      // }
-      setWatchList(userData.watchlist || []);
-    } catch (error) {
-      console.error("Error fetching holdings:", error);
-    }
-  };
+  // const refreshWatchList = async () => {
+  //   try {
+  //     // const res = await axios.get("http://localhost:3002/load/watchlist");
+  //     // if (res.data) {
+  //     //   setWatchList(res.data);
+  //     // }
+  //     setWatchList(userData.watchlist || []);
+  //   } catch (error) {
+  //     console.error("Error fetching holdings:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    refreshUserData();
-  }, []);
+  // useEffect(() => {
+  //   refreshUserData();
+  // }, []);
 
-  useEffect(() => {
-    setOrders(userData.orders || []);
-    setHoldings(userData.holdings || []);
-    setPositions(userData.positions || []);
-    setWatchList(userData.watchlist || []);
-  }, [userData]);
+  // useEffect(() => {
+  //   setOrders(userData.orders || []);
+  //   setHoldings(userData.holdings || []);
+  //   setPositions(userData.positions || []);
+  //   setWatchList(userData.watchlist || []);
+  // }, [userData]);
 
-  const [selectedStockUid, setselectedStockUid] = useState("");
+  //Trade Window
+  const setTradeWindow = ({ type, uuid }) => setTradeWindowState({ type, uuid });
+  const closeTradeWindow = () => setTradeWindowState({ type: "", uuid: "" });
 
-  const handleOpenBuyWindow = (uid) => {
-    setOpenWindow({ buy: true, sell: false });
-    setselectedStockUid(uid);
-  };
-  const handleOpenSellWindow = (uid) => {
-    setOpenWindow({ buy: false, sell: true });
-    setselectedStockUid(uid);
-  };
+  // const handleOpenBuyWindow = (uid) => {
+  //   setOpenWindow({ buy: true, sell: false });
+  //   setselectedStockUid(uid);
+  // };
+  // const handleOpenSellWindow = (uid) => {
+  //   setOpenWindow({ buy: false, sell: true });
+  //   setselectedStockUid(uid);
+  // };
 
-  const handleCloseBuyWindow = () => {
-    setOpenWindow((prev) => ({ ...prev, buy: false }));
-    setselectedStockUid("");
-  };
-  const handleCloseSellWindow = () => {
-    setOpenWindow((prev) => ({ ...prev, sell: false }));
-    setselectedStockUid("");
-  };
+  // const handleCloseBuyWindow = () => {
+  //   setOpenWindow((prev) => ({ ...prev, buy: false }));
+  //   setselectedStockUid("");
+  // };
+  // const handleCloseSellWindow = () => {
+  //   setOpenWindow((prev) => ({ ...prev, sell: false }));
+  //   setselectedStockUid("");
+  // };
 
+  //Buy/sellwindow
   //Buy-sell stock functions
   const handleBuyClick = async (data) => {
     try {
       const res = await axios.post("http://localhost:3002/order/buy", data);
       const { msg, status } = res.data;
       console.log("bought", res);
-      if (status === "success") {
-        toast.success(msg, {
-          position: "top-right",
-        });
-      } else {
-        toast.error(msg, {
-          position: "top-right",
-        });
-      }
+      // if (status === "success") {
+      //   toast.success(msg, {
+      //     position: "top-right",
+      //   });
+      // } else {
+      //   toast.error(msg, {
+      //     position: "top-right",
+      //   });
+      // }
+      status === "success" ? toast.success(msg) : toast.error(msg);
       // await refreshOrders();
       // await refreshHoldings();
       // await refreshPositions();
@@ -200,15 +212,16 @@ export const GeneralContextProvider = ({ children }) => {
       const res = await axios.post("http://localhost:3002/order/sell", data);
       const { msg, status } = res.data;
       console.log("sold", res);
-      if (status === "success") {
-        toast.success(msg, {
-          position: "top-right",
-        });
-      } else {
-        toast.error(msg, {
-          position: "top-right",
-        });
-      }
+      // if (status === "success") {
+      //   toast.success(msg, {
+      //     position: "top-right",
+      //   });
+      // } else {
+      //   toast.error(msg, {
+      //     position: "top-right",
+      //   });
+      // }
+      status === "success" ? toast.success(msg) : toast.error(msg);
       // await refreshOrders();
       // await refreshHoldings();
       // await refreshPositions();
@@ -220,7 +233,7 @@ export const GeneralContextProvider = ({ children }) => {
       });
     }
   };
-
+  //authentication
   const handleLogout = async () => {
     try {
       const res = await axios.get("http://localhost:3002/user/logout");
@@ -229,10 +242,10 @@ export const GeneralContextProvider = ({ children }) => {
 
       setUserData({});
       // Clear any cached data
-      setOrders([]);
-      setHoldings([]);
-      setPositions([]);
-      setWatchList([]);
+      // setOrders([]);
+      // setHoldings([]);
+      // setPositions([]);
+      // setWatchList([]);
       // Navigate to login page
       navigate("/login");
       // window.location.href = "http://localhost:5174/login";
@@ -247,24 +260,30 @@ export const GeneralContextProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    refreshUserData();
+  }, []);
+
   return (
     <GeneralContext.Provider
       value={{
-        openBuyWindow: handleOpenBuyWindow,
-        closeBuyWindow: handleCloseBuyWindow,
-        openSellWindow: handleOpenSellWindow,
-        closeSellWindow: handleCloseSellWindow,
+        setTradeWindow,
+        closeTradeWindow,
+        // openBuyWindow: handleOpenBuyWindow,
+        // closeBuyWindow: handleCloseBuyWindow,
+        // openSellWindow: handleOpenSellWindow,
+        // closeSellWindow: handleCloseSellWindow,
         buyStock: handleBuyClick,
         sellStock: handleSellClick,
-        selectedStock: selectedStockUid,
-        orders,
-        holdings,
-        positions,
-        refreshHoldings,
-        refreshPositions,
-        refreshOrders,
-        watchList,
-        refreshWatchList,
+        // selectedStock: selectedStockUid,
+        // orders,
+        // holdings,
+        // positions,
+        // refreshHoldings,
+        // refreshPositions,
+        // refreshOrders,
+        // watchList,
+        // refreshWatchList,
         userData,
         refreshUserData,
         handleLogout,
@@ -273,8 +292,8 @@ export const GeneralContextProvider = ({ children }) => {
     >
       {children}
 
-      {openWindow.buy && <BuyActionWindow uid={selectedStockUid} />}
-      {openWindow.sell && <SellActionWindow uid={selectedStockUid} />}
+      {tradeWindowState.type ==="Buy" && <BuyActionWindow uid={tradeWindowState.uuid} />}
+      {tradeWindowState.type =="Sell" && <SellActionWindow uid={tradeWindowState.uuid} />}
     </GeneralContext.Provider>
   );
 };

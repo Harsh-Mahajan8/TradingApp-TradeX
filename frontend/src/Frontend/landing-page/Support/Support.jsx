@@ -2,6 +2,9 @@ import DropdownLayout from "./DropdownLayout";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AdsClickIcon from "@mui/icons-material/AdsClick";
+import rupeeSvg from "../../assets/Support/rupee.svg";
+import consoleSvg from "../../assets/Support/console.svg";
+import coinSvg from "../../assets/Support/coin.svg";
 
 function Support() {
   return (
@@ -75,7 +78,7 @@ function Support() {
         </DropdownLayout>
         <DropdownLayout
           title={"Funds"}
-          icon={<img src="/Support/rupee.svg" className="mx-auto" />}
+          icon={<img src={rupeeSvg} className="mx-auto" />}
         >
           <li>
             <a href="">Add money</a>
@@ -92,7 +95,7 @@ function Support() {
         </DropdownLayout>
         <DropdownLayout
           title={"Console"}
-          icon={<img src="/Support/console.svg" className="mx-auto" />}
+          icon={<img src={consoleSvg} className="mx-auto" />}
         >
           <li>
             <a href="">Portfolio</a>
@@ -115,7 +118,7 @@ function Support() {
         </DropdownLayout>
         <DropdownLayout
           title={"Coin"}
-          icon={<img src="/Support/coin.svg" className="mx-auto" />}
+          icon={<img src={coinSvg} className="mx-auto" />}
         >
           <li>
             <a href="">Mutual funds</a>
@@ -150,11 +153,21 @@ function Support() {
         </ul>
 
         <div className="sideTable ms-2 me-3">
-          <div className="row border font-semibold bg-gray-100">Quick Links</div>
-          <div className="row"><a href="">1. Track account opening</a></div>
-          <div className="row"><a href="">2. Track segment activation</a></div>
-          <div className="row"><a href="">3. Intraday margins</a></div>
-          <div className="row"><a href="">4. Kite user manual</a></div>
+          <div className="row border font-semibold bg-gray-100">
+            Quick Links
+          </div>
+          <div className="row">
+            <a href="">1. Track account opening</a>
+          </div>
+          <div className="row">
+            <a href="">2. Track segment activation</a>
+          </div>
+          <div className="row">
+            <a href="">3. Intraday margins</a>
+          </div>
+          <div className="row">
+            <a href="">4. Kite user manual</a>
+          </div>
         </div>
       </div>
     </div>

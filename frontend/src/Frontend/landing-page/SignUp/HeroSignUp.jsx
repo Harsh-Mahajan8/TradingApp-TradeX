@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import accountOpenSvg from "../../assets/Signup/account_open.svg";
 
 function HeroSignUp() {
   const navigate = useNavigate();
@@ -64,7 +65,7 @@ function HeroSignUp() {
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-md-7 ">
-          <img src="/Signup/account_open.svg" alt="" />
+          <img src={accountOpenSvg} alt="" />
         </div>
         <div className="col-md-4 pt-5">
           <h4>Signup now</h4>

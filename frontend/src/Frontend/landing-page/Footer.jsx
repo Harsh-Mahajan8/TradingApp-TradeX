@@ -1,3 +1,5 @@
+import crossMarkPng from "../assets/Navbar/cross-mark.png";
+
 function Footer() {
   return (
     <div className="footer border-top mt-[6rem]">
@@ -8,11 +10,7 @@ function Footer() {
               className="navbar-brand fw-bold d-flex align-items-center mb-0"
               href="#"
             >
-              <img
-                className="w-8 h-8"
-                src="/Navbar/cross-mark.png"
-                alt="TradeX Logo"
-              />
+              <img className="w-8 h-8" src={crossMarkPng} alt="TradeX Logo" />
               <span className="fs-4 ps-2 bg-gradient-to-b from-indigo-500 to-pink-700 bg-clip-text text-transparent font-bold">
                 TradeX
               </span>

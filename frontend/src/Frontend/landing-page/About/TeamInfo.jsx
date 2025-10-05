@@ -1,3 +1,5 @@
+import imgJpg from "../../assets/About/img.jpg";
+
 function TeamInfo() {
   return (
     <div className="container">
@@ -5,25 +7,26 @@ function TeamInfo() {
         <h4>People</h4>
       </div>
       <div className="row justify-content-center">
-        
         <div className="col-md-5">
           <div className="row justify-content-end ps-3 mx-3">
             <img
-              src="/About/img.jpg"
+              src={imgJpg}
               className="w-[20rem!important] h-[18rem] grayscale rounded-[50%] object-fill"
               alt="CEO"
             />
             <div className="row text-center mt-4 ms-1 text-[black]">
-                <p className="font-medium">Homer Jay Simpson</p><br />
-                <p>Founder/ CEO</p>
+              <p className="font-medium">Homer Jay Simpson</p>
+              <br />
+              <p>Founder/ CEO</p>
             </div>
           </div>
         </div>
         <div className="col-md-6 leading-7 text-[1.03rem] px-5 ms-3">
           <p>
-            Homer Simpson bootstrapped and founded TradeX in 2010 to overcome the
-            hurdles he faced during his decade long stint as a trader. Today,
-            TradeX has changed the landscape of the Indian broking industry.
+            Homer Simpson bootstrapped and founded TradeX in 2010 to overcome
+            the hurdles he faced during his decade long stint as a trader.
+            Today, TradeX has changed the landscape of the Indian broking
+            industry.
           </p>
           <p>
             He is a member of the SEBI Secondary Market Advisory Committee

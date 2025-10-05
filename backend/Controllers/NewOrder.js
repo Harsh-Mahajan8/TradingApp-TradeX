@@ -109,9 +109,9 @@ module.exports.newOrderController = async (req, res) => {
         const day = (((price - ycp) / ycp) * 100);
         const tradeValue = qty * price;
         const user = await userModel.findById(req.user._id);
-        if(!qty && qty == 0){
-            return res.json({msg:"Enter valid Qty!!", status:"error"})
-        };
+        if (!qty || qty <= 0) {
+            return res.json({ msg: "Enter valid Qty!!", status: "error" });
+        }
 
         let canTrade = false;
         let marginBlocked = 0;
@@ -123,9 +123,12 @@ module.exports.newOrderController = async (req, res) => {
                 canTrade = true;
                 console.log("Sufficient Balance!!!");
             } else {
+                // Save cancelled order
+
                 return res.json({ msg: "Insufficient Funds", status: "error" });
             }
         }
+
         //Margin/MIS logic
         else {
             marginBlocked = tradeValue * 0.2; // e.g. 20% margin requirement
@@ -160,8 +163,9 @@ module.exports.newOrderController = async (req, res) => {
                 console.log("Position updated in Buy stock API");
             } else {
                 const newPosit = new PositionModel({
-                    product, name, qty, avg: price, price, day, user: req.user._id, time: Date.now()
+                    product, name, qty, avg: price, price, day, user: req.user._id, time: new Date()
                 });
+
                 await newPosit.save();
                 await userModel.findByIdAndUpdate(
                     req.user._id, { $addToSet: { positions: newPosit._id } }
@@ -197,7 +201,8 @@ module.exports.cronController = async () => {
             // Check 24 hours passed
             const now = new Date();
             const hoursPassed = (now - pos.time) / (1000 * 60 * 60);
-            if (hoursPassed < 24) continue;
+            console.log(`Hours passed for ${pos.name}: ${hoursPassed}`);
+            if (hoursPassed < 1/(60*30)) continue;
 
             // Directly get userId from pos
             const userId = pos.user;

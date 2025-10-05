@@ -9,7 +9,7 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import Tooltip from "@mui/material/Tooltip";
 import Grow from "@mui/material/Grow";
-import WatchlistContext from "./GeneralContext/WishlistContext";
+import WatchlistContext from "./GeneralContext/WatchlistContext";
 
 function StockListItem({ stock, handleGraph }) {
   let [showWatchlistAction, setShowWatchlistAction] = useState(false);
@@ -32,7 +32,9 @@ function StockListItem({ stock, handleGraph }) {
       onMouseLeave={handleMouseLeave}
     >
       <div className={`item ${stock.percent < 0 ? "down" : "up"}`}>
-        <p className={`item ${stock.percent < 0 ? "down" : "up"}`} >{stock.name}</p>
+        <p className={`item ${stock.percent < 0 ? "down" : "up"}`}>
+          {stock.name}
+        </p>
         <div className="itemInfo">
           <span className={`percent mx-2 ${stock.percent < 0 ? "down" : "up"}`}>
             {stock.percent > 0 ? "+" : ""}
@@ -46,7 +48,9 @@ function StockListItem({ stock, handleGraph }) {
           <span className="price mx-2">₹ {stock.price}</span>
         </div>
       </div>
-      {showWatchlistAction && <WatchListAction uuid={stock.name} handleGraphClick = {handleGraph} />}
+      {showWatchlistAction && (
+        <WatchListAction uuid={stock.name} handleGraphClick={handleGraph} />
+      )}
     </li>
   );
 }
@@ -66,7 +70,7 @@ const WatchListAction = ({ uuid, handleGraphClick }) => {
         >
           <button
             className="buy"
-            onClick={() => BuyContext.openBuyWindow(uuid)}
+            onClick={() => BuyContext.setTradeWindow({ type: "Buy", uuid })}
           >
             B
           </button>
@@ -79,7 +83,7 @@ const WatchListAction = ({ uuid, handleGraphClick }) => {
         >
           <button
             className="sell"
-            onClick={() => BuyContext.openSellWindow(uuid)}
+            onClick={() => BuyContext.setTradeWindow({ type: "Sell", uuid })}
           >
             S
           </button>

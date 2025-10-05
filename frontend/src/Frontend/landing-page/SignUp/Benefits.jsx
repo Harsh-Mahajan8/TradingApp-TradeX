@@ -1,3 +1,5 @@
+import acopBenefitsSvg from "../../assets/Signup/acop-benefits.svg";
+
 function Benefits() {
   return (
     <div className="container my-[6rem]">
@@ -6,7 +8,7 @@ function Benefits() {
       </h4>
       <div className="row md:pt-[2rem] ps-4 md:justify-items-center">
         <div className="col-md-6  md:pt-[3rem]">
-          <img src="/Signup/acop-benefits.svg" alt="" className="w-[25rem]" />
+          <img src={acopBenefitsSvg} alt="" className="w-[25rem]" />
         </div>
         <div className="col-md-6">
           <h5> Unbeatable pricing</h5>

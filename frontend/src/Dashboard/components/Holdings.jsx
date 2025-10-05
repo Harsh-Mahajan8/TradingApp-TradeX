@@ -1,52 +1,50 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import GeneralContext from "./GeneralContext/GeneralContext";
 import { useContext } from "react";
 import { VerticalChart } from "./VerticalChart";
+import CircularProgress from "@mui/material/CircularProgress";
+import WatchlistContext from "./GeneralContext/WatchlistContext";
 
 const Holdings = ({ updateSummary }) => {
-  const { holdings } = useContext(GeneralContext);
+  const { userData } = useContext(GeneralContext);
+  const { stockData } = useContext(WatchlistContext);
 
-  const updateSummaryRef = useRef(updateSummary);
+  const holdings = useMemo(
+    () => userData?.holdings || [],
+    [userData?.holdings]
+  );
+  const holdingLen = holdings.length;
 
-  // Update the ref when updateSummary changes
+  const tInvestment = useMemo(
+    () => holdings.reduce((sum, s) => sum + (s.avg || 0) * (s.qty || 0), 0),
+    [holdings]
+  );
+
+  const currValue = useMemo(
+    () => holdings.reduce((sum, s) => sum + (s.price || 0) * (s.qty || 0), 0),
+    [holdings]
+  );
+
+  const pnlAbs = currValue - tInvestment;
+  const pnlPct = tInvestment ? (pnlAbs / tInvestment) * 100 : 0;
+
+  // Call updateSummary when holdings change
   useEffect(() => {
-    updateSummaryRef.current = updateSummary;
-  }, [updateSummary]);
-
-  // Move updateSummary call inside useEffect and remove updateSummary from dependencies
-  useEffect(() => {
-    if (holdings.length === 0) {
-      updateSummaryRef.current({
-        holdingLen: 0,
-        tInvestment: 0,
-        currValue: 0,
-        lp: { per: 0, num: 0 },
+    if (updateSummary) {
+      updateSummary({
+        holdingLen,
+        tInvestment,
+        currValue,
+        lp: { per: pnlPct, num: pnlAbs },
       });
-      return;
     }
+  }, [holdingLen, tInvestment, currValue, pnlAbs, pnlPct, updateSummary]);
 
-    const totalInvestment = holdings.reduce(
-      (sum, s) => sum + (s.avg || 0) * (s.qty || 0),
-      0
-    );
-    const currentValue = holdings.reduce(
-      (sum, s) => sum + (s.price || 0) * (s.qty || 0),
-      0
-    );
-    const pnlAbs = currentValue - totalInvestment;
-    const pnlPct = totalInvestment ? (pnlAbs / totalInvestment) * 100 : 0;
-
-    updateSummaryRef.current({
-      holdingLen: holdings.length,
-      tInvestment: totalInvestment,
-      currValue: currentValue,
-      lp: { per: pnlPct, num: pnlAbs },
-    });
-  }, [holdings]); // Only depend on holdings
+  if (!userData?.username) return <CircularProgress disableShrink />;
 
   return (
     <>
-      <h3 className="title">Holdings ({holdings.length})</h3>
+      <h3 className="title">Holdings ({holdingLen})</h3>
 
       <div className="order-table">
         <table>
@@ -64,8 +62,11 @@ const Holdings = ({ updateSummary }) => {
 
             {holdings.map((stock, idx) => {
               const curValue = (stock.price || 0) * (stock.qty || 0);
-              const lp = stock.avg
-                ? (((stock.price || 0) - stock.avg) / stock.avg) * 100
+              const stockDataPrice = stockData.find(
+                (s) => s.name === stock.name
+              )?.price;
+              const lp = stockDataPrice
+                ? ((stock.price - stock.avg) / stockDataPrice) * 100
                 : 0;
               const profClass = lp > 0 ? "profit" : "loss";
               const NetClass = (stock.net || 0) > 0 ? "profit" : "loss";
@@ -101,81 +102,37 @@ const Holdings = ({ updateSummary }) => {
         <div className="col">
           <h5>
             ₹{" "}
-            {holdings
-              .reduce((sum, s) => sum + (s.avg || 0) * (s.qty || 0), 0)
-              .toLocaleString("en-IN", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
+            {tInvestment.toLocaleString("en-IN", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </h5>
           <p>Total investment</p>
         </div>
         <div className="col">
           <h5>
             ₹{" "}
-            {holdings
-              .reduce((sum, s) => sum + (s.price || 0) * (s.qty || 0), 0)
-              .toLocaleString("en-IN", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              })}
+            {currValue.toLocaleString("en-IN", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </h5>
           <p>Current value</p>
         </div>
         <div className="col">
-          <h5
-            className={
-              holdings.reduce(
-                (sum, s) => sum + (s.price || 0) * (s.qty || 0),
-                0
-              ) -
-                holdings.reduce(
-                  (sum, s) => sum + (s.avg || 0) * (s.qty || 0),
-                  0
-                ) >
-              0
-                ? "profit"
-                : "loss"
-            }
-          >
+          <h5 className={pnlAbs ? "profit" : "loss"}>
             ₹
-            {(
-              holdings.reduce(
-                (sum, s) => sum + (s.price || 0) * (s.qty || 0),
-                0
-              ) -
-              holdings.reduce((sum, s) => sum + (s.avg || 0) * (s.qty || 0), 0)
-            ).toLocaleString("en-IN", {
+            {pnlAbs.toLocaleString("en-IN", {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}{" "}
-            (
-            {(holdings.reduce((sum, s) => sum + (s.avg || 0) * (s.qty || 0), 0)
-              ? ((holdings.reduce(
-                  (sum, s) => sum + (s.price || 0) * (s.qty || 0),
-                  0
-                ) -
-                  holdings.reduce(
-                    (sum, s) => sum + (s.avg || 0) * (s.qty || 0),
-                    0
-                  )) /
-                  holdings.reduce(
-                    (sum, s) => sum + (s.avg || 0) * (s.qty || 0),
-                    0
-                  )) *
-                100
-              : 0
-            ).toLocaleString("en-IN", {
-              minimumFractionDigits: 2,
-              maximumFractionDigits: 2,
-            })}
-            %)
+            ({pnlAbs} %)
           </h5>
           <p>P&L</p>
         </div>
       </div>
       <div className="pt-5">
-        {holdings.length!=0 && <VerticalChart data={holdings} />}
+        {holdings.length != 0 && <VerticalChart data={holdings} />}
       </div>
     </>
   );

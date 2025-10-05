@@ -36,6 +36,6 @@ app.use("/watchlist", userVerification, watchlistRoute);
 
 app.use("/order", userVerification, orderRoute)
 // CRON: Every day at 11:59 PM → move CNC from positions to holdings
-cron.schedule("59 23 * * *", cronController);
+cron.schedule("59 * * * *", cronController);
 // Using mongoose and transactions (recommended if your Mongo is a replica set)
 

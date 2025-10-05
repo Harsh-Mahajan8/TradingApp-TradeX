@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext , useState, useEffect} from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import GeneralContext from "./GeneralContext";
@@ -6,10 +6,19 @@ import { useContext } from "react";
 const WatchlistContext = createContext({
   handleRemove: () => {},
   addToWishList: () => {},
+  stockData:[]
 });
 
 export const WatchlistContextProvider = ({ children }) => {
   const { refreshUserData } = useContext(GeneralContext);
+  const [stockData, setStockData] = useState([]);
+
+   useEffect(() => {
+      axios.get("http://localhost:3002/load/stocks").then((res) => {
+        setStockData(res.data || []);
+      });
+    }, []);
+   
   const addToWishList = async (uuid) => {
     try {
       const res = await axios.put("http://localhost:3002/watchlist/add", {
@@ -63,7 +72,7 @@ export const WatchlistContextProvider = ({ children }) => {
   };
 
   return (
-    <WatchlistContext.Provider value={{ handleRemove, addToWishList }}>
+    <WatchlistContext.Provider value={{ handleRemove, addToWishList, stockData }}>
       {children}
     </WatchlistContext.Provider>
   );
