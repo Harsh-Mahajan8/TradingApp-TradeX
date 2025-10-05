@@ -5,13 +5,13 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import crossMarkPng from "../assets/Navbar/cross-mark.png";
-const url = import.meta.env.VITE_API_URL;
+
 function LoginPage() {
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
   });
-  // const url = "http://localhost:3002"; //for deployment
+  const url = "http://localhost:3002"; //for deployment
   const navigate = useNavigate();
   const { email, password } = inputValue;
 
