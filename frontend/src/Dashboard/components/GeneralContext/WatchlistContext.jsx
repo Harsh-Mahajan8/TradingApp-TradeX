@@ -16,16 +16,20 @@ export const WatchlistContextProvider = ({ children }) => {
   const [stockData, setStockData] = useState([]);
 
   useEffect(() => {
-    axios.get(`${url}/load/stocks`).then((res) => {
+    axios.get(`${url}/load/stocks`, { withCredentials: true }).then((res) => {
       setStockData(res.data || []);
     });
   }, []);
 
   const addToWishList = async (uuid) => {
     try {
-      const res = await axios.put(`${url}/watchlist/add`, {
-        name: uuid,
-      });
+      const res = await axios.put(
+        `${url}/watchlist/add`,
+        {
+          name: uuid,
+        },
+        { withCredentials: true }
+      );
       const { message, status } = res.data;
       console.log(`${uuid} stock is saved on watchlist`);
       if (status === "success") {
@@ -51,6 +55,7 @@ export const WatchlistContextProvider = ({ children }) => {
     try {
       const res = await axios.delete(`${url}/watchlist/remove`, {
         data: { name: uuid },
+        withCredentials: true,
       });
       const { message, status } = res.data;
       console.log("removed", res);

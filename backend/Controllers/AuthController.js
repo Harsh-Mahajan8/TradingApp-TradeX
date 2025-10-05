@@ -12,8 +12,9 @@ module.exports.Signup = async (req, res, next) => {
         const user = await User.create({ email, password, username, createdAt });
         const token = createSecretToken(user._id);
         res.cookie("token", token, {
-            withCredentials: true,
-            httpOnly: false,
+            httpOnly: true,
+            sameSite: "None",
+            secure: true
         });
 
         res
@@ -29,7 +30,7 @@ module.exports.Signup = async (req, res, next) => {
 module.exports.Login = async (req, res, next) => {
     try {
         const { email, password } = req.body;
-        console.log("eneterde details are: ",email, password);
+        console.log("eneterde details are: ", email, password);
         if (!email || !password) {
             return res.json({ message: 'All fields are required' })
         }
@@ -43,8 +44,9 @@ module.exports.Login = async (req, res, next) => {
         }
         const token = createSecretToken(user._id);
         res.cookie("token", token, {
-            withCredentials: true,
-            httpOnly: false,
+            httpOnly: true,
+            sameSite: "None",
+            secure: true
         });
         res.status(201).json({ message: `${user.username} logged in successfully`, success: true, username: user.username });
         next()

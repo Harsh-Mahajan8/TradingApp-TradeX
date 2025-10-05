@@ -50,7 +50,9 @@ export const GeneralContextProvider = ({ children }) => {
   //data refresh
   const refreshUserData = async () => {
     try {
-      const res = await axios.get(`${url}/load/userdata`);
+      const res = await axios.get(`${url}/load/userdata`, {
+        withCredentials: true,
+      });
       if (res.data?.username) {
         setUserData(res.data);
       } else {
