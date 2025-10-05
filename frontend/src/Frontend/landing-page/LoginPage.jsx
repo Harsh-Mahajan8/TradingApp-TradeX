@@ -10,6 +10,7 @@ function LoginPage() {
     email: "",
     password: "",
   });
+  const url = "https://tradex-backend-0ftq.onrender.com"; //for deployment
   const navigate = useNavigate();
   const { email, password } = inputValue;
 
@@ -34,7 +35,7 @@ function LoginPage() {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:3002/user/login",
+        `${url}/user/login`,
         {
           ...inputValue,
         },

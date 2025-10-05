@@ -7,6 +7,7 @@ import accountOpenSvg from "../../assets/Signup/account_open.svg";
 
 function HeroSignUp() {
   const navigate = useNavigate();
+  const url = "https://tradex-backend-0ftq.onrender.com"; //for deployment
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
@@ -34,7 +35,7 @@ function HeroSignUp() {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:3002/user/signup",
+        `${url}/user/signup`,
         {
           ...inputValue,
         },

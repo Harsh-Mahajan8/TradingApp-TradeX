@@ -25,8 +25,8 @@ const GeneralContext = createContext({
   // selectedStock: "",
   handleLogout: () => {},
   updateUserData: () => {},
-  setTradeWindow:() => {},
-  closeTradeWindow:() => {},
+  setTradeWindow: () => {},
+  closeTradeWindow: () => {},
 });
 
 export const GeneralContextProvider = ({ children }) => {
@@ -42,12 +42,15 @@ export const GeneralContextProvider = ({ children }) => {
   // const [watchList, setWatchList] = useState([]);
   const [userData, setUserData] = useState({});
   // const [selectedStockUid, setselectedStockUid] = useState("");
-  const [tradeWindowState, setTradeWindowState] = useState({ type: "", uuid: "" });
-
+  const [tradeWindowState, setTradeWindowState] = useState({
+    type: "",
+    uuid: "",
+  });
+  const url = "https://tradex-backend-0ftq.onrender.com"; //for deployment
   //data refresh
   const refreshUserData = async () => {
     try {
-      const res = await axios.get("http://localhost:3002/load/userdata");
+      const res = await axios.get(`${url}/load/userdata`);
       if (res.data?.username) {
         setUserData(res.data);
       } else {
@@ -71,12 +74,9 @@ export const GeneralContextProvider = ({ children }) => {
           availableMargin: userData.availableMargin + 50000,
         };
       }
-      const res = await axios.post(
-        "http://localhost:3002/user/updateuserdata",
-        {
-          newuserData,
-        }
-      );
+      const res = await axios.post(`${url}/user/updateuserdata`, {
+        newuserData,
+      });
       setUserData((prev) => ({ ...prev, ...newuserData }));
       const { msg, status } = res.data;
       console.log("data updated", res);
@@ -99,7 +99,7 @@ export const GeneralContextProvider = ({ children }) => {
   };
   // const refreshOrders = async () => {
   //   try {
-  //     // const res = await axios.get("http://localhost:3002/load/orders");
+  //     // const res = await axios.get("https://tradex-backend-0ftq.onrender.com/load/orders");
   //     // if (res.data) {
   //     //   setOrders(res.data);
   //     // }
@@ -111,7 +111,7 @@ export const GeneralContextProvider = ({ children }) => {
 
   // const refreshHoldings = async () => {
   //   try {
-  //     // const res = await axios.get("http://localhost:3002/load/holdings");
+  //     // const res = await axios.get("https://tradex-backend-0ftq.onrender.com/load/holdings");
   //     // if (res.data) {
   //     //   setHoldings(res.data);
   //     // }
@@ -123,7 +123,7 @@ export const GeneralContextProvider = ({ children }) => {
 
   // const refreshPositions = async () => {
   //   try {
-  //     // const res = await axios.get("http://localhost:3002/load/positions");
+  //     // const res = await axios.get("https://tradex-backend-0ftq.onrender.com/load/positions");
   //     // if (res.data) {
   //     //   setPositions(res.data);
   //     // }
@@ -135,7 +135,7 @@ export const GeneralContextProvider = ({ children }) => {
 
   // const refreshWatchList = async () => {
   //   try {
-  //     // const res = await axios.get("http://localhost:3002/load/watchlist");
+  //     // const res = await axios.get("https://tradex-backend-0ftq.onrender.com/load/watchlist");
   //     // if (res.data) {
   //     //   setWatchList(res.data);
   //     // }
@@ -157,7 +157,8 @@ export const GeneralContextProvider = ({ children }) => {
   // }, [userData]);
 
   //Trade Window
-  const setTradeWindow = ({ type, uuid }) => setTradeWindowState({ type, uuid });
+  const setTradeWindow = ({ type, uuid }) =>
+    setTradeWindowState({ type, uuid });
   const closeTradeWindow = () => setTradeWindowState({ type: "", uuid: "" });
 
   // const handleOpenBuyWindow = (uid) => {
@@ -182,7 +183,7 @@ export const GeneralContextProvider = ({ children }) => {
   //Buy-sell stock functions
   const handleBuyClick = async (data) => {
     try {
-      const res = await axios.post("http://localhost:3002/order/buy", data);
+      const res = await axios.post(`${url}/order/buy`, data);
       const { msg, status } = res.data;
       console.log("bought", res);
       // if (status === "success") {
@@ -209,7 +210,7 @@ export const GeneralContextProvider = ({ children }) => {
 
   const handleSellClick = async (data) => {
     try {
-      const res = await axios.post("http://localhost:3002/order/sell", data);
+      const res = await axios.post(`${url}/order/sell`, data);
       const { msg, status } = res.data;
       console.log("sold", res);
       // if (status === "success") {
@@ -236,7 +237,7 @@ export const GeneralContextProvider = ({ children }) => {
   //authentication
   const handleLogout = async () => {
     try {
-      const res = await axios.get("http://localhost:3002/user/logout");
+      const res = await axios.get(`${url}/user/logout`);
       const { message } = res.data;
       console.log("Logged out", res);
 
@@ -292,8 +293,12 @@ export const GeneralContextProvider = ({ children }) => {
     >
       {children}
 
-      {tradeWindowState.type ==="Buy" && <BuyActionWindow uid={tradeWindowState.uuid} />}
-      {tradeWindowState.type =="Sell" && <SellActionWindow uid={tradeWindowState.uuid} />}
+      {tradeWindowState.type === "Buy" && (
+        <BuyActionWindow uid={tradeWindowState.uuid} />
+      )}
+      {tradeWindowState.type == "Sell" && (
+        <SellActionWindow uid={tradeWindowState.uuid} />
+      )}
     </GeneralContext.Provider>
   );
 };

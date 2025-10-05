@@ -1,4 +1,4 @@
-import { createContext , useState, useEffect} from "react";
+import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import GeneralContext from "./GeneralContext";
@@ -6,22 +6,23 @@ import { useContext } from "react";
 const WatchlistContext = createContext({
   handleRemove: () => {},
   addToWishList: () => {},
-  stockData:[]
+  stockData: [],
 });
 
 export const WatchlistContextProvider = ({ children }) => {
   const { refreshUserData } = useContext(GeneralContext);
+  const url = "https://tradex-backend-0ftq.onrender.com"; //for deployment //url = "http://localhost:3002"
   const [stockData, setStockData] = useState([]);
 
-   useEffect(() => {
-      axios.get("http://localhost:3002/load/stocks").then((res) => {
-        setStockData(res.data || []);
-      });
-    }, []);
-   
+  useEffect(() => {
+    axios.get(`${url}/load/stocks`).then((res) => {
+      setStockData(res.data || []);
+    });
+  }, []);
+
   const addToWishList = async (uuid) => {
     try {
-      const res = await axios.put("http://localhost:3002/watchlist/add", {
+      const res = await axios.put(`${url}/watchlist/add`, {
         name: uuid,
       });
       const { message, status } = res.data;
@@ -47,7 +48,7 @@ export const WatchlistContextProvider = ({ children }) => {
   };
   const handleRemove = async (uuid) => {
     try {
-      const res = await axios.delete("http://localhost:3002/watchlist/remove", {
+      const res = await axios.delete(`${url}/watchlist/remove`, {
         data: { name: uuid },
       });
       const { message, status } = res.data;
@@ -72,7 +73,9 @@ export const WatchlistContextProvider = ({ children }) => {
   };
 
   return (
-    <WatchlistContext.Provider value={{ handleRemove, addToWishList, stockData }}>
+    <WatchlistContext.Provider
+      value={{ handleRemove, addToWishList, stockData }}
+    >
       {children}
     </WatchlistContext.Provider>
   );
