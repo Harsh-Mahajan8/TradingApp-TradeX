@@ -40,7 +40,7 @@ app.use(cookieParser());
 app.get("/", (req, res) => {
   res.json("You are at root dir")
 })
-app.use("/load", userVerification, LoadDataRoute)
+app.use("/load", LoadDataRoute)
 app.use("/user", authAndUserRoute);
 app.use("/watchlist", userVerification, watchlistRoute);
 

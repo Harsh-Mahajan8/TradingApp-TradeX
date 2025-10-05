@@ -43,8 +43,12 @@ function LoginPage() {
         { withCredentials: true }
       );
       console.log(data);
-      const { success, message } = data;
+      const { success, message, token } = data;
       if (success) {
+        if (token) {
+          localStorage.setItem("authToken", token);
+          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        }
         handleSuccess(message);
 
         setTimeout(() => {

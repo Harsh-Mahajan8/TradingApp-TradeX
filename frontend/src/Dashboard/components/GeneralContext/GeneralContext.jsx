@@ -3,6 +3,13 @@ import BuyActionWindow from "../BuyActionWindow";
 import SellActionWindow from "../SellActionWindow";
 import axios from "axios";
 axios.defaults.withCredentials = true;
+const storedToken =
+  typeof localStorage !== "undefined"
+    ? localStorage.getItem("authToken")
+    : null;
+if (storedToken) {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${storedToken}`;
+}
 
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -185,7 +192,9 @@ export const GeneralContextProvider = ({ children }) => {
   //Buy-sell stock functions
   const handleBuyClick = async (data) => {
     try {
-      const res = await axios.post(`${url}/order/buy`, data);
+      const res = await axios.post(`${url}/order/buy`, data, {
+        withCredentials: true,
+      });
       const { msg, status } = res.data;
       console.log("bought", res);
       // if (status === "success") {
@@ -212,7 +221,9 @@ export const GeneralContextProvider = ({ children }) => {
 
   const handleSellClick = async (data) => {
     try {
-      const res = await axios.post(`${url}/order/sell`, data);
+      const res = await axios.post(`${url}/order/sell`, data, {
+        withCredentials: true,
+      });
       const { msg, status } = res.data;
       console.log("sold", res);
       // if (status === "success") {
@@ -239,7 +250,11 @@ export const GeneralContextProvider = ({ children }) => {
   //authentication
   const handleLogout = async () => {
     try {
-      const res = await axios.get(`${url}/user/logout`);
+      const res = await axios.get(`${url}/user/logout`, {
+        withCredentials: true,
+      });
+      localStorage.removeItem("authToken");
+      delete axios.defaults.headers.common["Authorization"];
       const { message } = res.data;
       console.log("Logged out", res);
 
