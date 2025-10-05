@@ -3,6 +3,7 @@ import BuyActionWindow from "../BuyActionWindow";
 import SellActionWindow from "../SellActionWindow";
 import axios from "axios";
 axios.defaults.withCredentials = true;
+const url = import.meta.env.VITE_API_URL;
 
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -46,7 +47,7 @@ export const GeneralContextProvider = ({ children }) => {
     type: "",
     uuid: "",
   });
-  const url = "http://localhost:3002"; //for deployment
+  // const url = "http://localhost:3002"; //for deployment
   //data refresh
   const refreshUserData = async () => {
     try {

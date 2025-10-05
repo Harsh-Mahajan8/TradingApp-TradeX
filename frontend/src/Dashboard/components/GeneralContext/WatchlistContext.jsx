@@ -3,6 +3,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import GeneralContext from "./GeneralContext";
 import { useContext } from "react";
+const url = import.meta.env.VITE_API_URL;
+
 const WatchlistContext = createContext({
   handleRemove: () => {},
   addToWishList: () => {},
@@ -11,7 +13,7 @@ const WatchlistContext = createContext({
 
 export const WatchlistContextProvider = ({ children }) => {
   const { refreshUserData } = useContext(GeneralContext);
-  const url = "http://localhost:3002"; //for deployment //url = "http://localhost:3002"
+  // const url = "http://localhost:3002"; //for deployment //url = "http://localhost:3002"
   const [stockData, setStockData] = useState([]);
 
   useEffect(() => {

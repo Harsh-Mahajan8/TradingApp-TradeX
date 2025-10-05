@@ -4,10 +4,11 @@ import axios from "axios";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import accountOpenSvg from "../../assets/Signup/account_open.svg";
+const url = import.meta.env.VITE_API_URL;
 
 function HeroSignUp() {
   const navigate = useNavigate();
-  const url = "http://localhost:3002"; //for deployment
+  // const url = "http://localhost:3002"; //for deployment
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
