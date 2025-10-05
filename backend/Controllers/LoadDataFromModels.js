@@ -38,11 +38,11 @@ const loadOrder = async (req, res) => {
 
 const loadUserData = async (req, res) => {
     console.log(req.originalUrl);
-    console.log("User ID: ", req.user._id);
     try {
         if (!req.user || !req.user._id) {
             return res.status(401).json({ message: "User not authenticated" });
         }
+        console.log("User ID: ", req.user._id);
 
         let userData = await UserModel.findOne({ _id: req.user._id })
             .populate('watchlist')
