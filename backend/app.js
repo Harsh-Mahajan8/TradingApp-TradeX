@@ -30,7 +30,7 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cookieParser());
-app.get("/",(res, res) => {
+app.get("/",(req, res) => {
   res.json("You are at root dir")
 })
 app.use("/load", userVerification, LoadDataRoute)
