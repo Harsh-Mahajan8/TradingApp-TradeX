@@ -11,7 +11,7 @@ function LoginPage() {
     email: "",
     password: "",
   });
-  const url = "http://localhost:3002"; //for deployment
+  const url = "https://tradingapp-tradex.onrender.com"; //for deployment
   const navigate = useNavigate();
   const { email, password } = inputValue;
 

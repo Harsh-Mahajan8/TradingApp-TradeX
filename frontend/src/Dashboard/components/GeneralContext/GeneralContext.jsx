@@ -46,7 +46,7 @@ export const GeneralContextProvider = ({ children }) => {
     type: "",
     uuid: "",
   });
-  const url = "http://localhost:3002"; //for deployment
+  const url = "https://tradingapp-tradex.onrender.com"; //for deployment
   //data refresh
   const refreshUserData = async () => {
     try {
@@ -99,7 +99,7 @@ export const GeneralContextProvider = ({ children }) => {
   };
   // const refreshOrders = async () => {
   //   try {
-  //     // const res = await axios.get("http://localhost:3002/load/orders");
+  //     // const res = await axios.get("https://tradingapp-tradex.onrender.com/load/orders");
   //     // if (res.data) {
   //     //   setOrders(res.data);
   //     // }
@@ -111,7 +111,7 @@ export const GeneralContextProvider = ({ children }) => {
 
   // const refreshHoldings = async () => {
   //   try {
-  //     // const res = await axios.get("http://localhost:3002/load/holdings");
+  //     // const res = await axios.get("https://tradingapp-tradex.onrender.com/load/holdings");
   //     // if (res.data) {
   //     //   setHoldings(res.data);
   //     // }
@@ -123,7 +123,7 @@ export const GeneralContextProvider = ({ children }) => {
 
   // const refreshPositions = async () => {
   //   try {
-  //     // const res = await axios.get("http://localhost:3002/load/positions");
+  //     // const res = await axios.get("https://tradingapp-tradex.onrender.com/load/positions");
   //     // if (res.data) {
   //     //   setPositions(res.data);
   //     // }
@@ -135,7 +135,7 @@ export const GeneralContextProvider = ({ children }) => {
 
   // const refreshWatchList = async () => {
   //   try {
-  //     // const res = await axios.get("http://localhost:3002/load/watchlist");
+  //     // const res = await axios.get("https://tradingapp-tradex.onrender.com/load/watchlist");
   //     // if (res.data) {
   //     //   setWatchList(res.data);
   //     // }
