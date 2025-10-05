@@ -14,7 +14,9 @@ module.exports.Signup = async (req, res, next) => {
         res.cookie("token", token, {
             httpOnly: true,
             sameSite: "None",
-            secure: true
+            secure: true,
+            path: "/",
+            domain: "tradingapp-tradex.onrender.com"
         });
 
         res
@@ -46,7 +48,9 @@ module.exports.Login = async (req, res, next) => {
         res.cookie("token", token, {
             httpOnly: true,
             sameSite: "None",
-            secure: true
+            secure: true,
+            path: "/",
+            domain: "tradingapp-tradex.onrender.com"
         });
         res.status(201).json({ message: `${user.username} logged in successfully`, success: true, username: user.username });
         next()

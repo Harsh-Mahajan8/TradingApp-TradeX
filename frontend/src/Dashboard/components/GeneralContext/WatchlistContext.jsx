@@ -12,7 +12,8 @@ const WatchlistContext = createContext({
 
 export const WatchlistContextProvider = ({ children }) => {
   const { refreshUserData } = useContext(GeneralContext);
-  const url = "https://tradingapp-tradex.onrender.com"; //for deployment //url = "https://tradingapp-tradex.onrender.com"
+  const url = "https://tradingapp-tradex.onrender.com";
+   //for deployment //url = "https://tradingapp-tradex.onrender.com"
   const [stockData, setStockData] = useState([]);
 
   useEffect(() => {

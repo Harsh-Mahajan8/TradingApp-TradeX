@@ -15,6 +15,7 @@ const LoadDataRoute = require("./Routes/LoadDataRoute.js");
 const { userVerification } = require('./Middlewares/AuthMiddleware.js');
 const { PORT = 3002, MONGO_URL: URL } = process.env;
 const app = express();
+app.set('trust proxy', 1);
 mongoose.connect(URL).then(() => {
   console.log("Mongo is Connected");
 }).catch((e) => console.log("Mongo Error"));
