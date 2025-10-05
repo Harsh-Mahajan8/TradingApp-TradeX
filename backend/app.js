@@ -22,7 +22,10 @@ app.listen(PORT, () => {
     console.log("Server is working at port " + PORT);
 })
 
-app.use(cors());
+app.use(cors({
+  origin: ["https://tradingapp-tradex-nmgi.onrender.com/", "http://localhost:5173"], // allow only your frontend
+  credentials: true,
+}));
 
 app.use(bodyParser.json());
 app.use(express.json());
