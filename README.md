@@ -1,6 +1,7 @@
-# <img width="52" height="52" alt="icon" src="https://github.com/user-attachments/assets/5165aa35-48a0-4946-b933-b714f983e9d2" /><h3>TradeX - Trading Simulator</h3>
+# <img width="52" height="52" alt="icon" src="https://github.com/user-attachments/assets/5165aa35-48a0-4946-b933-b714f983e9d2" />
+<h3>TradeX - Trading Simulator</h3>
 
-TradeX is a full-stack trading simulator that allows users to experience real-time stock trading without any financial risk. Users can securely sign up, buy/sell simulated stocks, track their portfolio, and manage favorites.
+**TradeX** is a full-stack trading simulator web application that enables users to experience real-time stock trading — with no financial risk. Users can sign up, log in securely using JWT authentication, and buy or sell time-limited simulated stocks. The platform also includes a wishlist feature to mark favorite stocks for easy access.Also tracks the Wallet, and Profit and Loss(if any)
 
 ---
 
@@ -71,38 +72,69 @@ TradeX is a full-stack trading simulator that allows users to experience real-ti
 
 ## 🛠️ Local Development Setup
 
+### 1️⃣ Clone the Repository
+
+```bash
 git clone https://github.com/<your-username>/TradeX-Trading-Simulator.git
 cd TradeX-Trading-Simulator
+```
 
-# Backend
+### 2️⃣ Setup the Backend
+
+```bash
 cd backend
 npm install
-# Create .env with PORT, MONGO_URI, JWT_SECRET, FRONTEND_URL
-npm start
+```
 
-# Frontend
+Create a `.env` file in the `backend` directory with the following:
+
+```
+PORT=5000
+MONGO_URI=<your-mongodb-atlas-uri>
+JWT_SECRET=<your-secret-key>
+FRONTEND_URL=http://localhost:5173
+```
+
+Start the backend:
+
+```bash
+npm start
+```
+
+### 3️⃣ Setup the Frontend
+
+```bash
 cd ../frontend
 npm install
 npm run dev
+```
 
 Access the app at **[http://localhost:5173/](http://localhost:5173/)**.
 
 ---
 
-📦 TradeX-Trading-Simulator
- ┣ 📂 backend
- ┃ ┣ 📂 Controllers
- ┃ ┣ 📂 Models
- ┃ ┣ 📂 Routes
- ┃ ┣ 📂 Middlewares
- ┃ ┗ server.js
- ┣ 📂 frontend
- ┃ ┣ 📂 src
- ┃ ┣ 📂 components
- ┃ ┣ 📂 pages
- ┃ ┣ 📂 assets
- ┃ ┗ vite.config.js
- ┗ README.md
+## 🧩 Folder Structure
+
+```
+TradeX-Trading-Simulator/
+│
+├── backend/
+│   ├── Controllers/
+│   ├── Models/
+│   ├── Routes/
+│   ├── Middlewares/
+│   ├── server.js
+│   └── .env
+│
+├── frontend/
+│   ├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── assets/
+│   └── vite.config.js
+│
+└── README.md
+```
 
 ---
 
