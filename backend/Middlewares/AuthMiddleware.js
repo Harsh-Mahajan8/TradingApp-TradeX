@@ -1,22 +1,23 @@
 const User = require("../models/UserModel");
 const jwt = require("jsonwebtoken");
 
-module.exports.userVerification = (req, res, next) => {
-  const token = req.cookies.token
-  if (!token) {
-    return res.status(401).json({ status: false, message: "No token provided" })
-  }
-  jwt.verify(token, process.env.TOKEN_KEY, async (err, data) => {
-    if (err) {
-      return res.status(401).json({ status: false, message: "Invalid token" })
-    } else {
-      const user = await User.findById(data.id)
-      if (user) {
-        req.user = user; // Set user on request
-        next(); // Proceed to next middleware/route
-      } else {
-        return res.status(401).json({ status: false, message: "User not found" })
-      }
+module.exports.userVerification = async (req, res, next) => {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(401).json({ status: false, message: "No token provided" });
     }
-  })
-}
+
+    const decoded = jwt.verify(token, process.env.TOKEN_KEY); // sync verification
+    const user = await User.findById(decoded.id);
+    if (!user) {
+      return res.status(401).json({ status: false, message: "User not found" });
+    }
+
+    req.user = user; // attach user to request
+    next();
+  } catch (err) {
+    console.error("Auth Error:", err);
+    return res.status(401).json({ status: false, message: "Invalid token" });
+  }
+};
