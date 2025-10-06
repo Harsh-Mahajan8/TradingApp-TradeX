@@ -58,7 +58,9 @@ export const GeneralContextProvider = ({ children }) => {
   const refreshUserData = async () => {
     try {
       const res = await axios.get(`${url}/load/userdata`, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       if (res.data?.username) {
         setUserData(res.data);
@@ -83,9 +85,17 @@ export const GeneralContextProvider = ({ children }) => {
           availableMargin: userData.availableMargin + 50000,
         };
       }
-      const res = await axios.post(`${url}/user/updateuserdata`, {
-        newuserData,
-      });
+      const res = await axios.post(
+        `${url}/user/updateuserdata`,
+        {
+          newuserData,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       setUserData((prev) => ({ ...prev, ...newuserData }));
       const { msg, status } = res.data;
       console.log("data updated", res);
@@ -193,7 +203,9 @@ export const GeneralContextProvider = ({ children }) => {
   const handleBuyClick = async (data) => {
     try {
       const res = await axios.post(`${url}/order/buy`, data, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       const { msg, status } = res.data;
       console.log("bought", res);
@@ -222,7 +234,9 @@ export const GeneralContextProvider = ({ children }) => {
   const handleSellClick = async (data) => {
     try {
       const res = await axios.post(`${url}/order/sell`, data, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       const { msg, status } = res.data;
       console.log("sold", res);
@@ -251,7 +265,9 @@ export const GeneralContextProvider = ({ children }) => {
   const handleLogout = async () => {
     try {
       const res = await axios.get(`${url}/user/logout`, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       localStorage.removeItem("authToken");
       delete axios.defaults.headers.common["Authorization"];

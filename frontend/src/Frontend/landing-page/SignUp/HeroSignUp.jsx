@@ -39,7 +39,11 @@ function HeroSignUp() {
         {
           ...inputValue,
         },
-        { withCredentials: true }
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       const { success, message } = data;
       if (success) {

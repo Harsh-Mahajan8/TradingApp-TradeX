@@ -40,7 +40,11 @@ function LoginPage() {
         {
           ...inputValue,
         },
-        { withCredentials: true }
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       console.log(data);
       const { success, message, token } = data;
