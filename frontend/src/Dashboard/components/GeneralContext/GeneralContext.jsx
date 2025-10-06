@@ -53,7 +53,7 @@ export const GeneralContextProvider = ({ children }) => {
     type: "",
     uuid: "",
   });
-  const url = "https://tradingapp-tradex.onrender.com"; //for deployment
+  const url = "http://localhost:3002"; //for deployment
   //data refresh
   const refreshUserData = async () => {
     try {
