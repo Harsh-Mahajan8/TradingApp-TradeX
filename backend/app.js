@@ -23,14 +23,9 @@ app.listen(PORT, () => {
 })
 
 app.use(cors({
-  origin: [
-    "https://tradingapp-tradex.onrender.com",
-    "https://tradingapp-tradex-nmgi.onrender.com",
-    "http://localhost:5173"
-  ],
+  origin: process.env.FRONTEND_URL,
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(bodyParser.json());
