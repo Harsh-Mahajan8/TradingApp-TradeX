@@ -1,4 +1,4 @@
-# <img width="512" height="512" alt="icon" src="https://github.com/user-attachments/assets/5165aa35-48a0-4946-b933-b714f983e9d2" />
+# <img width="52" height="52" alt="icon" src="https://github.com/user-attachments/assets/5165aa35-48a0-4946-b933-b714f983e9d2" />
 <h3>TradeX - Trading Simulator</h3>
 
 **TradeX** is a full-stack trading simulator web application that enables users to experience real-time stock trading — with no financial risk. Users can sign up, log in securely using JWT authentication, and buy or sell time-limited simulated stocks. The platform also includes a wishlist feature to mark favorite stocks for easy access.
