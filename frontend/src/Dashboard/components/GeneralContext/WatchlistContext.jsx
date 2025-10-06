@@ -12,7 +12,7 @@ const WatchlistContext = createContext({
 
 export const WatchlistContextProvider = ({ children }) => {
   const { refreshUserData } = useContext(GeneralContext);
-  const url = "http://localhost:3002";
+  const url = import.meta.env.VITE_API_URL;
    //for deployment //url = "https://tradingapp-tradex.onrender.com"
   const [stockData, setStockData] = useState([]);
 

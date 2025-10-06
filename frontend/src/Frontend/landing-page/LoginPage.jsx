@@ -11,7 +11,7 @@ function LoginPage() {
     email: "",
     password: "",
   });
-  const url = "http://localhost:3002"; //for deployment
+  const url = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const { email, password } = inputValue;
 

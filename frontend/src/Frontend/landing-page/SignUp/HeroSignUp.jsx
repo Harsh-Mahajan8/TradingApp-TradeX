@@ -7,7 +7,7 @@ import accountOpenSvg from "../../assets/Signup/account_open.svg";
 
 function HeroSignUp() {
   const navigate = useNavigate();
-  const url = "http://localhost:3002"; //for deployment
+  const url = import.meta.env.VITE_API_URL;
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",

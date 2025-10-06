@@ -53,7 +53,7 @@ export const GeneralContextProvider = ({ children }) => {
     type: "",
     uuid: "",
   });
-  const url = "http://localhost:3002"; //for deployment
+  const url = import.meta.env.VITE_API_URL;
   //data refresh
   const refreshUserData = async () => {
     try {
