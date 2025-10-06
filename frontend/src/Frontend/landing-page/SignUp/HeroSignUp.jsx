@@ -34,17 +34,9 @@ function HeroSignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
-        `${url}/user/signup`,
-        {
-          ...inputValue,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const { data } = await axios.post(`${url}/user/signup`, {
+        ...inputValue,
+      });
       const { success, message } = data;
       if (success) {
         handleSuccess(message);
@@ -59,7 +51,6 @@ function HeroSignUp() {
       console.log(error);
     }
     setInputValue({
-      ...inputValue,
       email: "",
       password: "",
       username: "",

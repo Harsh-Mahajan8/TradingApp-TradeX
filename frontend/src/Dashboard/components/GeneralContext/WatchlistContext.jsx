@@ -19,7 +19,7 @@ export const WatchlistContextProvider = ({ children }) => {
   const api = axios.create({
     baseURL: url,
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
       "Content-Type": "application/json",
     },
   });

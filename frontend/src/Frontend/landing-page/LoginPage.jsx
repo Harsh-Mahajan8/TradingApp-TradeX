@@ -35,18 +35,8 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
-        `${url}/user/login`,
-        {
-          ...inputValue,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      console.log(data);
+      const { data } = await axios.post(`${url}/user/login`, { ...inputValue });
+
       const { success, message, token } = data;
       if (success) {
         if (token) {
@@ -57,7 +47,6 @@ function LoginPage() {
 
         setTimeout(() => {
           navigate("/tradeX");
-          // window.location.href = "http://localhost:5173/tradeX";
         }, 1000);
       } else {
         handleError(message);
@@ -66,11 +55,8 @@ function LoginPage() {
       console.log(error);
       handleError("Failed to login");
     }
-    setInputValue({
-      ...inputValue,
-      email: "",
-      password: "",
-    });
+
+    setInputValue({ email: "", password: "" });
   };
 
   return (

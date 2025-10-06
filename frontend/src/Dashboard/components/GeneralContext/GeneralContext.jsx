@@ -2,14 +2,6 @@ import { createContext, useEffect, useState } from "react";
 import BuyActionWindow from "../BuyActionWindow";
 import SellActionWindow from "../SellActionWindow";
 import axios from "axios";
-axios.defaults.withCredentials = true;
-const storedToken =
-  typeof localStorage !== "undefined"
-    ? localStorage.getItem("authToken")
-    : null;
-if (storedToken) {
-  axios.defaults.headers.common["Authorization"] = `Bearer ${storedToken}`;
-}
 
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -59,7 +51,7 @@ export const GeneralContextProvider = ({ children }) => {
     try {
       const res = await axios.get(`${url}/load/userdata`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
       });
       if (res.data?.username) {
@@ -92,7 +84,7 @@ export const GeneralContextProvider = ({ children }) => {
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
         }
       );
@@ -204,7 +196,7 @@ export const GeneralContextProvider = ({ children }) => {
     try {
       const res = await axios.post(`${url}/order/buy`, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
       });
       const { msg, status } = res.data;
@@ -235,7 +227,7 @@ export const GeneralContextProvider = ({ children }) => {
     try {
       const res = await axios.post(`${url}/order/sell`, data, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
         },
       });
       const { msg, status } = res.data;
@@ -266,23 +258,22 @@ export const GeneralContextProvider = ({ children }) => {
     try {
       const res = await axios.get(`${url}/user/logout`, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`, // <-- use authToken
         },
       });
+
+      // Remove token from localStorage and axios defaults
       localStorage.removeItem("authToken");
       delete axios.defaults.headers.common["Authorization"];
+
       const { message } = res.data;
       console.log("Logged out", res);
 
-      setUserData({});
-      // Clear any cached data
-      // setOrders([]);
-      // setHoldings([]);
-      // setPositions([]);
-      // setWatchList([]);
+      setUserData({}); // Reset user data
+
       // Navigate to login page
       navigate("/login");
-      // window.location.href = "http://localhost:5174/login";
+
       toast.success(message, {
         position: "top-right",
       });
