@@ -55,3 +55,32 @@ module.exports.Login = async (req, res, next) => {
         res.status(500).json({ message: "Server error", success: false });
     }
 };
+
+module.exports.getUser = async (req, res) => {
+    try {
+        res.status(200).json({
+            message: "User data retrieved successfully",
+            success: true,
+            user: {
+                username: req.user.username,
+                email: req.user.email,
+                _id: req.user._id
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error", success: false });
+    }
+};
+
+module.exports.LogOut = async (req, res) => {
+    try {
+        res.status(200).json({
+            message: "Logged out successfully",
+            success: true
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error", success: false });
+    }
+};
